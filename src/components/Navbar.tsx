@@ -2,11 +2,13 @@ import { Link } from "react-router-dom";
 import { ShoppingCart, Store } from "lucide-react";
 import { UseAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import { useUI } from "../context/UIContext";
 import { UserDropdown } from "./UserDropdown";
 
 const Navbar = () => {
     const { session } = UseAuth();
     const { cart } = useCart();
+    const { openOverlay } = useUI();
     const totalItems = cart?.total_items ?? 0;
 
     return (
@@ -21,20 +23,18 @@ const Navbar = () => {
                 </Link>
 
                 <div className="flex items-center gap-4">
-                    {session && (
-                        <Link
-                            to="/catalogo"
-                            className="relative flex items-center gap-1.5 text-gray-700 hover:text-green-600 transition"
-                            aria-label={`Carrito con ${totalItems} artículos`}
-                        >
-                            <ShoppingCart size={20} />
-                            {totalItems > 0 && (
-                                <span className="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-green-600 px-1 text-xs font-semibold text-white">
-                                    {totalItems}
-                                </span>
-                            )}
-                        </Link>
-                    )}
+                    <button
+                        onClick={() => openOverlay("cart")}
+                        className="relative flex items-center gap-1.5 text-gray-700 hover:text-green-600 transition"
+                        aria-label={`Carrito con ${totalItems} artículos`}
+                    >
+                        <ShoppingCart size={20} />
+                        {totalItems > 0 && (
+                            <span className="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-green-600 px-1 text-xs font-semibold text-white">
+                                {totalItems}
+                            </span>
+                        )}
+                    </button>
 
                     {session ? (
                         <UserDropdown />

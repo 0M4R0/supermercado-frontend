@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import SettingsOverlay from "./components/SettingsOverlay";
+import CartSidePanel from "./components/CartSidePanel";
 import { UIContextProvider } from "./context/UIContext";
 
 export default function Layout() {
@@ -15,6 +16,7 @@ export default function Layout() {
 
                 {/* Global Overlays */}
                 <SettingsOverlay />
+                <CartSidePanel />
             </div>
         </UIContextProvider>
     );
