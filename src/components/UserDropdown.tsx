@@ -63,7 +63,7 @@ export const UserDropdown = () => {
             {/* Avatar Button */}
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="flex items-center cursor-pointer gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition focus:outline-none focus:ring-2 focus:ring-green-500"
             >
                 {/* Avatar */}
                 <div className="w-8 h-8 rounded-full bg-green-600 text-white flex items-center justify-center font-semibold text-sm">
@@ -87,7 +87,7 @@ export const UserDropdown = () => {
                     {/* Menu items */}
                     <button
                         onClick={handleMyOrders}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition"
+                        className="w-full cursor-pointer flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition"
                     >
                         <ShoppingBag size={18} className="text-gray-600" />
                         <span>Mis pedidos</span>
@@ -95,7 +95,7 @@ export const UserDropdown = () => {
 
                     <button
                         onClick={handleSettings}
-                        className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition"
+                        className="w-full cursor-pointer flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition"
                     >
                         <Settings size={18} className="text-gray-600" />
                         <span>Configuración</span>
@@ -105,7 +105,7 @@ export const UserDropdown = () => {
                     <div className="border-t border-gray-100 pt-1">
                         <button
                             onClick={handleLogout}
-                            className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition"
+                            className="w-full cursor-pointer flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition"
                         >
                             <LogOut size={18} />
                             <span>Cerrar sesión</span>

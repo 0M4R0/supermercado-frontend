@@ -5,6 +5,7 @@ import { ApiError } from "../lib/api";
 import { useCart } from "../context/CartContext";
 import { UseAuth } from "../context/AuthContext";
 import type { Product } from "../types/product";
+import { formatPrice } from "../utils/formatPrice";
 
 type ProductCardProps = {
     product: Product;
@@ -36,7 +37,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 navigate("/login");
                 return;
             }
-            setError(err instanceof Error ? err.message : "No se pudo agregar al carrito");
+            setError("No se pudo agregar al carrito");
         } finally {
             setAdding(false);
         }
@@ -77,11 +78,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
 
                 <div className="flex items-center gap-2">
                     <span className="text-2xl font-bold text-green-600">
-                        {product.price.toFixed(2)} €
+                        {formatPrice(product.price)}
                     </span>
                     {product.originalPrice && (
                         <span className="text-sm text-gray-400 line-through">
-                            {product.originalPrice.toFixed(2)} €
+                            {formatPrice(product.originalPrice)}
                         </span>
                     )}
                 </div>
@@ -94,7 +95,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                     type="button"
                     onClick={handleAddToCart}
                     disabled={adding || product.inStock === false}
-                    className="mt-2 inline-flex items-center justify-center w-full rounded-full bg-green-600 px-4 py-2 text-white font-semibold shadow-sm hover:bg-green-700 transition disabled:cursor-not-allowed disabled:opacity-60"
+                    className="mt-2 cursor-pointer inline-flex items-center justify-center w-full rounded-full bg-green-600 px-4 py-2 text-white font-semibold shadow-sm hover:bg-green-700 transition disabled:cursor-not-allowed disabled:opacity-60"
                 >
                     <ShoppingCartIcon className="w-4 h-4 mr-2" />
                     {adding ? "Agregando..." : "Añadir"}

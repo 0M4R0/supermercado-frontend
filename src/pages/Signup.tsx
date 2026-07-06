@@ -8,6 +8,8 @@ const Signup = () => {
     const [password, setPassword] = useState("");
         const [confirmPassword, setConfirmPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false)
+
+    const [acceptTerms, setAcceptTerms] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -69,7 +71,6 @@ const Signup = () => {
                 </div>
 
             </div>
-
 
             <div className="flex w-full lg:w-1/2 items-center justify-center px-8">
                 <form onSubmit={handleSubmit} className="w-full max-w-md space-y-6">
@@ -169,9 +170,27 @@ const Signup = () => {
                             {loading ? "Creando..." : "Crear"}
                         </button>
 
-                    <p className="text-center">
-                        Al registrarte aceptas nuestros <span className="text-green-600 font-bold"> Términos y Política de privacidad</span>
-                    </p>
+                    <div className="flex items-center gap-2 justify-center">
+                        <input  
+                            type="checkbox"
+                            className="w-4 h-4"
+                            id="acceptTerms"
+                            checked={acceptTerms}
+                            onChange={(e) => setAcceptTerms(e.target.checked)}
+                            />
+
+                        <label htmlFor="acceptTerms">
+                            Aceptos los {" "}
+                        </label>
+
+                        <button 
+                            type="button"
+                            className="text-green-600 font-bold cursor-pointer"
+                            onClick={() => window.open("https://www.google.com", "_blank")}
+                        >
+                            términos y condiciones
+                        </button>
+                    </div>
 
                     <p className="text-center">
                         Ya tienes una cuenta?{" "}

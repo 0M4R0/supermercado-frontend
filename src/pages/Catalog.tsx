@@ -156,9 +156,11 @@ const Catalog = () => {
                                 )}
                             </>
                         ) : (
-                            <p className="text-gray-500">
-                                No hay productos con los filtros seleccionados.
-                            </p>
+                            <div className="flex flex-col items-center justify-center h-full text-center">
+                                <p className="text-gray-500">
+                                    No hay productos con los filtros seleccionados.
+                                </p>
+                            </div>
                         )}
                     </div>
                 </div>

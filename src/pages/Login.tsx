@@ -30,7 +30,7 @@ const Login = () => {
             } else {
                 setError(error);
             }
-        } catch (error) {
+        } catch {
             setError("An unexpected error occurred. Please try again.");
         } finally {
             setLoading(false);
@@ -116,7 +116,7 @@ const Login = () => {
                     <button 
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 disabled:opacity-50 transition"
+                        className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 disabled:opacity-50 transition cursor-pointer"
                     >
                     {loading ? "Iniciando..." : "Iniciar sesion"}
                     </button>

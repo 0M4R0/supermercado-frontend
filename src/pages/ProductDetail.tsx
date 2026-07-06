@@ -8,6 +8,7 @@ import { ApiError } from "../lib/api";
 import { useCart } from "../context/CartContext";
 import { UseAuth } from "../context/AuthContext";
 import type { Product } from "../types/product";
+import { formatPrice } from "../utils/formatPrice";
 
 const ProductDetail = () => {
     const { id } = useParams<{ id: string }>();
@@ -49,6 +50,12 @@ const ProductDetail = () => {
 
     const handleAddToCart = async () => {
         if (!product) return;
+
+        const maxAllowed = product.maxStock ?? product.stock ?? 0;
+        if (quantity > maxAllowed) {
+            setCartError(`Máximo ${maxAllowed} unidades por cliente`);
+            return;
+        }
 
         setCartError("");
         setAdding(true);
@@ -125,6 +132,7 @@ const ProductDetail = () => {
                 />
 
                 <div className="grid gap-10 lg:grid-cols-2">
+                    {/* Product image */}
                     <div className="bg-gray-100 rounded-2xl flex items-center justify-center p-8 min-h-[400px]">
                         {product.imageUrl ? (
                             <img
@@ -137,6 +145,7 @@ const ProductDetail = () => {
                         )}
                     </div>
 
+                    {/* Product details */}
                     <div className="space-y-6">
                         {product.category && (
                             <p className="text-sm text-gray-500">{product.category}</p>
@@ -146,11 +155,11 @@ const ProductDetail = () => {
 
                         <div className="flex items-center gap-3 flex-wrap">
                             <span className="text-3xl font-bold text-green-600">
-                                {product.price.toFixed(2)} €
+                                {formatPrice(product.price)}
                             </span>
                             {product.originalPrice && (
                                 <span className="text-lg text-gray-400 line-through">
-                                    {product.originalPrice.toFixed(2)} €
+                                    {formatPrice(product.originalPrice)}
                                 </span>
                             )}
                             {product.discount && (
@@ -184,10 +193,12 @@ const ProductDetail = () => {
 
                         <div className="flex items-center gap-6 flex-wrap">
                             <div className="flex items-center border border-gray-200 rounded-lg">
+                                
+                                {/* Reduce quantity */}
                                 <button
                                     type="button"
                                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                                    className="p-2 hover:bg-gray-50 text-gray-600"
+                                    className="p-2 hover:bg-gray-50 text-gray-600 cursor-pointer"
                                     aria-label="Reducir cantidad"
                                 >
                                     <Minus className="h-4 w-4" />
@@ -195,17 +206,22 @@ const ProductDetail = () => {
                                 <span className="px-4 py-2 min-w-[3rem] text-center font-medium">
                                     {quantity}
                                 </span>
+
+                                {/* Increase quantity */}
                                 <button
                                     type="button"
                                     onClick={() => setQuantity((q) => q + 1)}
-                                    className="p-2 hover:bg-gray-50 text-gray-600"
+                                    disabled={quantity >= (product.maxStock ?? product.stock ?? 0)}
+                                    className="p-2 cursor-pointer hover:bg-gray-50 text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed"
                                     aria-label="Aumentar cantidad"
                                 >
                                     <Plus className="h-4 w-4" />
                                 </button>
                             </div>
+
+                            {/* Show subtotal */}
                             <p className="text-sm text-gray-600">
-                                Subtotal: <strong>{subtotal} €</strong>
+                                Subtotal: <strong>{formatPrice(Number(subtotal))}</strong>
                             </p>
                         </div>
 
@@ -217,7 +233,7 @@ const ProductDetail = () => {
                             type="button"
                             onClick={handleAddToCart}
                             disabled={adding || !product.inStock}
-                            className="w-full flex items-center justify-center gap-2 rounded-lg bg-green-600 px-6 py-3 text-white font-semibold hover:bg-green-700 transition disabled:cursor-not-allowed disabled:opacity-60"
+                            className="w-full cursor-pointer flex items-center justify-center gap-2 rounded-lg bg-green-600 px-6 py-3 text-white font-semibold hover:bg-green-700 transition disabled:cursor-not-allowed disabled:opacity-60"
                         >
                             <ShoppingCart className="h-5 w-5" />
                             {adding ? "Agregando..." : "Agregar al carrito"}

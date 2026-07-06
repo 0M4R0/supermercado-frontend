@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
 import { useUI } from "../context/UIContext";
@@ -41,6 +41,11 @@ export const SettingsOverlay = () => {
                 return <ProfileTab />;
         }
     };
+    
+    const handleClose = useCallback(() => {
+        closeOverlay();
+        navigate("/home");
+    }, [closeOverlay, navigate]);
 
     // Handle escape key
     useEffect(() => {
@@ -52,26 +57,22 @@ export const SettingsOverlay = () => {
 
         window.addEventListener("keydown", handleEscape);
         return () => window.removeEventListener("keydown", handleEscape);
-    }, [activeOverlay]);
+    }, [activeOverlay, handleClose]);
 
-    const handleClose = () => {
-        closeOverlay();
-        navigate("/home");
-    };
 
     if (activeOverlay !== "settings") return null;
 
     return (
         <>
-            {/* Backdrop */}
-            <div
-                className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity"
-                onClick={handleClose}
-            />
-
             {/* Settings Panel */}
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-hidden flex">
+            <div
+                className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+                onClick={handleClose}
+            >
+                <div
+                    className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-hidden flex"
+                    onClick={(e) => e.stopPropagation()}
+                >
                     {/* Sidebar */}
                     <div className="hidden md:flex w-64 bg-gray-50 border-r border-gray-200 flex-col">
                         <div className="p-6 border-b border-gray-200">
@@ -104,7 +105,7 @@ export const SettingsOverlay = () => {
                             </h3>
                             <button
                                 onClick={handleClose}
-                                className="p-2 hover:bg-gray-200 rounded-lg transition text-gray-600"
+                                className="p-2 hover:bg-gray-200 rounded-lg transition text-gray-600 cursor-pointer"
                                 aria-label="Cerrar"
                             >
                                 <X size={24} />

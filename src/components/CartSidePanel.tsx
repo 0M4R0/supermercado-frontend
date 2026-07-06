@@ -1,15 +1,28 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCart, X, Minus, Plus, Trash2 } from "lucide-react";
 import { useUI } from "../context/UIContext";
 import { useCart } from "../context/CartContext";
 import { UseAuth } from "../context/AuthContext";
+import { fetchProductoById } from "../api/productos";
+import { formatPrice } from "../utils/formatPrice";
+
+function unwrapMaxStock(
+    value: { max_stock: number } | { max_stock: number }[] | null | undefined
+): number | undefined {
+    if (value == null) return undefined;
+    const item = Array.isArray(value) ? value[0] : value;
+    return item?.max_stock;
+}
 
 export const CartSidePanel = () => {
     const { activeOverlay, closeOverlay } = useUI();
     const { cart, updateItemQuantity, removeItem } = useCart();
     const { session } = UseAuth();
     const navigate = useNavigate();
+    const [stockMap, setStockMap] = useState<Record<number, number>>({});
+    const [stockLoading, setStockLoading] = useState<Record<number, boolean>>({});
+    const [stockErrors, setStockErrors] = useState<Record<number, string>>({});
 
     useEffect(() => {
         const handleEscape = (e: KeyboardEvent) => {
@@ -35,20 +48,47 @@ export const CartSidePanel = () => {
         navigate("/catalogo");
     };
 
-    const handleQuantityChange = async (articuloId: number, currentQty: number, delta: number) => {
+    const handleQuantityChange = async (
+        articuloId: number,
+        productoId: number,
+        currentQty: number,
+        delta: number
+    ) => {
         const newQty = currentQty + delta;
+
         if (newQty < 1) {
             await removeItem(articuloId);
-        } else {
-            await updateItemQuantity(articuloId, newQty);
+            return;
         }
-    };
 
-    const formatPrice = (value: number) => {
-        return new Intl.NumberFormat("es-AR", {
-            style: "currency",
-            currency: "ARS",
-        }).format(value);
+        if (delta > 0) {
+            let available = stockMap[productoId];
+
+            if (available === undefined) {
+                setStockLoading((prev) => ({ ...prev, [articuloId]: true }));
+                try {
+                    const producto = await fetchProductoById(productoId);
+                    available = unwrapMaxStock(producto.producto_inventario) ?? 0;
+                    setStockMap((prev) => ({ ...prev, [productoId]: available }));
+                } catch {
+                    setStockLoading((prev) => ({ ...prev, [articuloId]: false }));
+                    await updateItemQuantity(articuloId, newQty);
+                    return;
+                }
+                setStockLoading((prev) => ({ ...prev, [articuloId]: false }));
+            }
+
+            if (currentQty >= available) {
+                setStockErrors((prev) => ({
+                    ...prev,
+                    [articuloId]: `Máximo ${available} unidades por cliente`,
+                }));
+                return;
+            }
+        }
+
+        setStockErrors((prev) => ({ ...prev, [articuloId]: "" }));
+        await updateItemQuantity(articuloId, newQty);
     };
 
     return (
@@ -70,7 +110,7 @@ export const CartSidePanel = () => {
                     </div>
                     <button
                         onClick={closeOverlay}
-                        className="p-2 hover:bg-gray-100 rounded-lg transition text-gray-500"
+                        className="p-2 cursor-pointer hover:bg-gray-100 rounded-lg transition text-gray-500"
                         aria-label="Cerrar carrito"
                     >
                         <X size={22} />
@@ -86,7 +126,7 @@ export const CartSidePanel = () => {
                             </p>
                             <button
                                 onClick={handleLogin}
-                                className="bg-green-600 text-white px-6 py-2.5 rounded-lg hover:bg-green-700 transition font-medium"
+                                className="bg-green-600 text-white px-6 py-2.5 rounded-lg hover:bg-green-700 transition font-medium cursor-pointer"
                             >
                                 Iniciar sesión
                             </button>
@@ -133,15 +173,18 @@ export const CartSidePanel = () => {
                                             {formatPrice(item.precio_unitario)}
                                         </p>
                                         <div className="flex items-center gap-2 mt-2">
+
+                                            {/* Remove item cart side panel */}
                                             <button
                                                 onClick={() =>
                                                     handleQuantityChange(
                                                         item.articulo_carrito_id,
+                                                        item.producto_id,
                                                         item.cantidad,
                                                         -1
                                                     )
                                                 }
-                                                className="p-1 rounded-md hover:bg-gray-200 transition text-gray-600"
+                                                className="p-1 cursor-pointer rounded-md hover:bg-gray-200 transition text-gray-600"
                                                 aria-label="Disminuir cantidad"
                                             >
                                                 {item.cantidad === 1 ? (
@@ -153,20 +196,33 @@ export const CartSidePanel = () => {
                                             <span className="w-8 text-center text-sm font-medium text-gray-900">
                                                 {item.cantidad}
                                             </span>
+
+                                            {/* Add item cart side panel */}
                                             <button
                                                 onClick={() =>
                                                     handleQuantityChange(
                                                         item.articulo_carrito_id,
+                                                        item.producto_id,
                                                         item.cantidad,
                                                         1
                                                     )
                                                 }
-                                                className="p-1 rounded-md hover:bg-gray-200 transition text-gray-600"
+                                                disabled={
+                                                    stockLoading[item.articulo_carrito_id] ||
+                                                    (stockMap[item.producto_id] !== undefined &&
+                                                        item.cantidad >= stockMap[item.producto_id])
+                                                }
+                                                className="p-1 cursor-pointer rounded-md hover:bg-gray-200 transition text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed"
                                                 aria-label="Aumentar cantidad"
                                             >
                                                 <Plus size={16} />
                                             </button>
                                         </div>
+                                        {stockErrors[item.articulo_carrito_id] && (
+                                            <p className="text-xs text-red-600 mt-1">
+                                                {stockErrors[item.articulo_carrito_id]}
+                                            </p>
+                                        )}
                                     </div>
                                     <p className="font-semibold text-gray-900 whitespace-nowrap">
                                         {formatPrice(item.precio_unitario * item.cantidad)}

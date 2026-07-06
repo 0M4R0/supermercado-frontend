@@ -5,19 +5,19 @@ import CartSidePanel from "./components/CartSidePanel";
 import { UIContextProvider } from "./context/UIContext";
 
 export default function Layout() {
-    return (
-        <UIContextProvider>
-            <div className="h-full flex">
-                <Navbar />
+  return (
+    <UIContextProvider>
+      <div className="h-full flex">
+        <Navbar />
 
-                <div className="flex-1">
-                    <Outlet />
-                </div>
+        <div className="flex-1">
+          <Outlet />
+        </div>
 
-                {/* Global Overlays */}
-                <SettingsOverlay />
-                <CartSidePanel />
-            </div>
-        </UIContextProvider>
-    );
+        {/* Global Overlays */}
+        <SettingsOverlay />
+        <CartSidePanel />
+      </div>
+    </UIContextProvider>
+  );
 }

@@ -11,6 +11,7 @@ export type Product = {
     distributor?: string;
     inStock?: boolean;
     stock?: number;
+    maxStock?: number;
 };
 
 export type Category = {

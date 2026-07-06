@@ -19,6 +19,7 @@ export type ApiCategoriaEmbed = {
 export type ApiInventario = {
     stock: number;
     min_stock: number;
+    max_stock: number;
 };
 
 export type ApiProductoCategoria = {

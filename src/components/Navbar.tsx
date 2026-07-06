@@ -25,7 +25,7 @@ const Navbar = () => {
                 <div className="flex items-center gap-4">
                     <button
                         onClick={() => openOverlay("cart")}
-                        className="relative flex items-center gap-1.5 text-gray-700 hover:text-green-600 transition"
+                        className="relative flex items-center gap-1.5 text-gray-700 hover:text-green-600 transition cursor-pointer"
                         aria-label={`Carrito con ${totalItems} artículos`}
                     >
                         <ShoppingCart size={20} />

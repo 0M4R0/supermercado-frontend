@@ -30,5 +30,6 @@ export function mapProducto(producto: ApiProducto): Product {
         distributor: proveedor?.nombre,
         inStock: stock > 0,
         stock,
+        maxStock: inventario?.max_stock,
     };
 }
