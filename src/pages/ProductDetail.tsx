@@ -147,8 +147,12 @@ const ProductDetail = () => {
 
                     {/* Product details */}
                     <div className="space-y-6">
-                        {product.category && (
+
+                        {/* Show categories */}
+                        {product.category ? (
                             <p className="text-sm text-gray-500">{product.category}</p>
+                        ) : (
+                            <p className="text-sm text-gray-500">Sin categoría</p>
                         )}
 
                         <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>

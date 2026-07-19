@@ -84,9 +84,9 @@ export const SettingsOverlay = () => {
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
-                                    className={`w-full text-left px-4 py-3 rounded-lg font-medium transition ${
+                                    className={`w-full cursor-pointer text-left px-4 py-3 rounded-lg font-medium transition ${
                                         activeTab === tab.id
-                                            ? "bg-green-100 text-green-700 border-l-4 border-green-600"
+                                            ? "bg-green-100 text-green-700"
                                             : "text-gray-700 hover:bg-gray-100"
                                     }`}
                                 >

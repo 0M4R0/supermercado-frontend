@@ -27,8 +27,10 @@ const Catalog = () => {
                 const data = await fetchCategorias();
                 setCategories(data);
             } catch (err) {
-                if (err instanceof Error) {
-                    setError(err.message);
+                if (err.message === "SERVER_ERROR") {
+                    setError("Problemas de conexión con el servidor.");
+                } else {
+                    setError("Ocurrió un error inesperado.");
                 }
             } finally {
                 setCategoriesLoading(false);

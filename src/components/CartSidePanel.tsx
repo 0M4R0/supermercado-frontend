@@ -5,6 +5,7 @@ import { useUI } from "../context/UIContext";
 import { useCart } from "../context/CartContext";
 import { UseAuth } from "../context/AuthContext";
 import { fetchProductoById } from "../api/productos";
+import { CheckoutModal } from "./CheckoutModal";
 import { formatPrice } from "../utils/formatPrice";
 
 function unwrapMaxStock(
@@ -20,9 +21,15 @@ export const CartSidePanel = () => {
     const { cart, updateItemQuantity, removeItem } = useCart();
     const { session } = UseAuth();
     const navigate = useNavigate();
+    const [showCheckout, setShowCheckout] = useState(false);
     const [stockMap, setStockMap] = useState<Record<number, number>>({});
     const [stockLoading, setStockLoading] = useState<Record<number, boolean>>({});
     const [stockErrors, setStockErrors] = useState<Record<number, string>>({});
+
+    const handleCheckoutComplete = () => {
+        setShowCheckout(false);
+        closeOverlay();
+    };
 
     useEffect(() => {
         const handleEscape = (e: KeyboardEvent) => {
@@ -242,15 +249,21 @@ export const CartSidePanel = () => {
                             </span>
                         </div>
                         <button
-                            disabled
-                            className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold text-lg hover:bg-green-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
-                            title="Próximamente"
+                            onClick={() => setShowCheckout(true)}
+                            className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold text-lg hover:bg-green-700 transition cursor-pointer"
                         >
                             Pagar
                         </button>
                     </div>
                 )}
             </div>
+
+            {showCheckout && (
+                <CheckoutModal
+                    onClose={() => setShowCheckout(false)}
+                    onComplete={handleCheckoutComplete}
+                />
+            )}
         </>
     );
 };
