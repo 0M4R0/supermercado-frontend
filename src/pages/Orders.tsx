@@ -3,19 +3,16 @@ import { Link } from "react-router-dom";
 import { Package, ArrowRight, Loader2 } from "lucide-react";
 import { UseAuth } from "../context/AuthContext";
 import { fetchPedidos } from "../api/pedidos";
+import { OrderCard } from "../components/OrderCard";
 import type { Pedido } from "../types/checkout";
 
-const estadoColors: Record<string, string> = {
-    Pendiente: "text-yellow-600 bg-yellow-50",
-    Confirmado: "text-blue-600 bg-blue-50",
-    Enviado: "text-purple-600 bg-purple-50",
-    Entregado: "text-green-600 bg-green-50",
-    Cancelado: "text-red-600 bg-red-50",
-};
+const PAGE_SIZE = 10;
 
 export const Orders = () => {
     const { session } = UseAuth();
     const [orders, setOrders] = useState<Pedido[]>([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
@@ -24,33 +21,17 @@ export const Orders = () => {
             if (!session) return;
             setLoading(true);
             try {
-                const data = await fetchPedidos(session.access_token);
-                setOrders(data);
-            } catch (err) {
-                setError(err instanceof Error ? err.message : "Error al cargar pedidos");
+                const data = await fetchPedidos(session.access_token, page, PAGE_SIZE);
+                setOrders(data.data);
+                setTotalPages(data.total_pages);
+            } catch {
+                setError("Error al cargar pedidos");
             } finally {
                 setLoading(false);
             }
         };
         load();
-    }, [session]);
-
-    const formatDate = (dateStr: string) => {
-        return new Date(dateStr).toLocaleDateString("es-ES", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
-        });
-    };
-
-    const formatPrice = (value: number) => {
-        return new Intl.NumberFormat("es-AR", {
-            style: "currency",
-            currency: "ARS",
-        }).format(value);
-    };
+    }, [session, page]);
 
     return (
         <main className="min-h-screen bg-gray-50 pt-24 pb-12">
@@ -92,34 +73,32 @@ export const Orders = () => {
                 ) : (
                     <div className="space-y-4">
                         {orders.map((order) => (
-                            <div
-                                key={order.pedido_id}
-                                className="bg-white rounded-lg shadow-sm p-5 hover:shadow-md transition"
-                            >
-                                <div className="flex items-center justify-between flex-wrap gap-2">
-                                    <div>
-                                        <p className="text-sm text-gray-500">
-                                            {formatDate(order.created_at)}
-                                        </p>
-                                        <p className="font-semibold text-gray-900 mt-0.5">
-                                            {order.codigo_seguimiento}
-                                        </p>
-                                    </div>
-                                    <div className="text-right">
-                                        <p className="font-bold text-lg text-gray-900">
-                                            {formatPrice(order.total)}
-                                        </p>
-                                        <span
-                                            className={`inline-block mt-1 text-xs font-semibold px-2.5 py-0.5 rounded-full ${
-                                                estadoColors[order.estado_pedido] ?? "text-gray-600 bg-gray-100"
-                                            }`}
-                                        >
-                                            {order.estado_pedido}
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                            <OrderCard key={order.pedido_id} order={order} />
                         ))}
+
+                        {totalPages > 1 && (
+                            <div className="flex items-center justify-center gap-4 mt-8">
+                                <button
+                                    type="button"
+                                    disabled={page <= 1}
+                                    onClick={() => setPage((p) => p - 1)}
+                                    className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    Anterior
+                                </button>
+                                <span className="text-sm text-gray-600">
+                                    Página {page} de {totalPages}
+                                </span>
+                                <button
+                                    type="button"
+                                    disabled={page >= totalPages}
+                                    onClick={() => setPage((p) => p + 1)}
+                                    className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                                >
+                                    Siguiente
+                                </button>
+                            </div>
+                        )}
                     </div>
                 )}
             </div>

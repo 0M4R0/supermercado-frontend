@@ -62,7 +62,10 @@ export type CheckoutResponse = {
 export type Pedido = {
     pedido_id: number;
     codigo_seguimiento: string;
+    estado: string;
     total: number;
-    estado_pedido: string;
-    created_at: string;
+    fecha_pedido: string;
+    resumen_productos: string;
+    cantidad_productos: number;
+    imagenes_productos: string[];
 };

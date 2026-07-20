@@ -149,7 +149,7 @@ export const CartSidePanel = () => {
                             </p>
                             <button
                                 onClick={handleGoToCatalog}
-                                className="bg-green-600 text-white px-6 py-2.5 rounded-lg hover:bg-green-700 transition font-medium"
+                                className="bg-green-600 text-white px-6 py-2.5 rounded-lg hover:bg-green-700 transition font-medium cursor-pointer"
                             >
                                 Ver catálogo
                             </button>
