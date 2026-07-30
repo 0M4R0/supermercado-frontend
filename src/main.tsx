@@ -8,12 +8,10 @@ import { router } from "./router";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <>
-      <AuthContextProvider>
+    <AuthContextProvider>
         <CartProvider>
           <RouterProvider router={router} />
         </CartProvider>
-      </AuthContextProvider>
-    </>
+    </AuthContextProvider>
   </StrictMode>,
 );
