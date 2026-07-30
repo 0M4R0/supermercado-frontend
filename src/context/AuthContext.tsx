@@ -5,14 +5,15 @@ import { supabase } from "../lib/supabase";
 interface AuthContextType {
     session: Session | null;
     setSession: React.Dispatch<React.SetStateAction<Session | null>>;
+    isLoading: boolean;
     signInNewUser: (
-        email: string, 
-        password: string, 
-        nombre: string, 
+        email: string,
+        password: string,
+        nombre: string,
         apellido: string
     ) => Promise<{ success: boolean, session: Session | null, error: string | null }>;
     signInExistingUser: (
-        email: string, 
+        email: string,
         password: string
     ) => Promise<{ success: boolean, session: Session | null, error: string | null }>;
     signOut: () => Promise<void>;
@@ -42,6 +43,7 @@ const normalizeDisplayName = (email: string) => {
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     const [session, setSession] = useState<Session | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const signInNewUser = async (
         email : string, 
@@ -74,17 +76,24 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     }
 
     useEffect(() => {
-        supabase.auth.getSession().then(({ data: { session } }) => {
-            setSession(session);
-        });
-        
+        const initialize = async () => {
+            try 
+            {
+                const { data: { session } } = await supabase.auth.getSession();
+                setSession(session);
+            }
+            finally {
+                setIsLoading(false);
+            }
+        };
+
+        initialize();
+
         const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session ) => {
             setSession(session);
         });
 
-        return () => {
-            subscription.unsubscribe();
-        }
+        return () => subscription.unsubscribe();
     }, []);
 
     // Sign in existing user
@@ -119,8 +128,12 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         setSession(null);
     }
 
+    if (isLoading) {
+        return null;
+    }
+
     return (
-        <AuthContext.Provider value={{ session, setSession, signInNewUser, signInExistingUser, signOut }}>
+        <AuthContext.Provider value={{ session, setSession, isLoading, signInNewUser, signInExistingUser, signOut }}>
             {children}
         </AuthContext.Provider>
     )
