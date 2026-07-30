@@ -12,3 +12,10 @@ export function createUbicacion(token: string, payload: CreateUbicacionPayload) 
         body: JSON.stringify(payload),
     });
 }
+
+export function deleteUbicacion(token: string, ubicacionId: number) {
+    return apiFetch<Ubicacion>(`/ubicaciones/${ubicacionId}`, {
+        method: "DELETE",
+        token,
+    });
+}
