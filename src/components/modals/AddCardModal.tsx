@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { X, Loader2 } from "lucide-react";
-import { createCard } from "../api/paymentMethods";
-import { UseAuth } from "../context/AuthContext";
-import type { SavedCard } from "../types/checkout";
+import { createCard } from "../../api/paymentMethods";
+import { UseAuth } from "../../context/AuthContext";
+import type { SavedCard } from "../../types/checkout";
 
 type AddCardModalProps = {
     metodoPagoId: number;

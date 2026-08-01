@@ -46,9 +46,9 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
     const [isLoading, setIsLoading] = useState(true);
 
     const signInNewUser = async (
-        email : string, 
-        password : string, 
-        nombre: string, 
+        email : string,
+        password : string,
+        nombre: string,
         apellido: string
     ) : Promise<{ success: boolean, session: Session | null, error: string | null }> => {
         const normalizedEmail = normalizeEmail(email);
@@ -56,14 +56,14 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
         const normalizedNombre = normalizeNombre(nombre);
         const normalizedApellido = normalizeApellido(apellido);
         const normalizedDisplayName = normalizeDisplayName(email);
-        
+
         const { data, error } = await supabase.auth.signUp({
             email: normalizedEmail,
             password: normalizedPassword,
             options: {
                 data: {
                     display_name: normalizedDisplayName,
-                    nombre: normalizedNombre, 
+                    nombre: normalizedNombre,
                     apellido: normalizedApellido
                 }
             }
@@ -77,7 +77,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
     useEffect(() => {
         const initialize = async () => {
-            try 
+            try
             {
                 const { data: { session } } = await supabase.auth.getSession();
                 setSession(session);
@@ -98,7 +98,7 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
 
     // Sign in existing user
     const signInExistingUser = async (
-        email : string, 
+        email : string,
         password : string
     ) : Promise<{ success: boolean, session: Session | null, error: string | null }> => {
         try {
@@ -110,7 +110,11 @@ export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
                 password: normalizedPassword
             });
             if (error) {
-                return { success: false, session: null, error: error.message };
+              const errorMessage = error.message === 'Invalid login credentials'
+                ? "Correo o contraseñas incorrectas, intente nuevamente."
+                : error.message;
+
+              return { success: false, session: null, error: errorMessage };
             }
             return { success: true, session: data.session, error: "" };
         } catch (error) {

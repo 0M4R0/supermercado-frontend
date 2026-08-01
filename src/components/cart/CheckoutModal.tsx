@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { X, Check, Loader2, MapPin, CreditCard, ChevronLeft } from "lucide-react";
-import { useCart } from "../context/CartContext";
-import { UseAuth } from "../context/AuthContext";
-import { fetchUbicaciones } from "../api/ubicaciones";
-import { fetchMetodosPagoCatalogo, fetchSavedCards } from "../api/paymentMethods";
-import { createOrder } from "../api/checkout";
-import { AddLocationModal } from "./AddLocationModal";
-import { AddCardModal } from "./AddCardModal";
-import { formatPrice } from "../utils/formatPrice";
-import type { Ubicacion, MetodoPagoCatalogo, SavedCard, CheckoutPayload } from "../types/checkout";
+import { useCart } from "../../context/CartContext";
+import { UseAuth } from "../../context/AuthContext";
+import { fetchUbicaciones } from "../../api/ubicaciones";
+import { fetchMetodosPagoCatalogo, fetchSavedCards } from "../../api/paymentMethods";
+import { createOrder } from "../../api/checkout";
+import { AddLocationModal } from "../modals/AddLocationModal";
+import { AddCardModal } from "../modals/AddCardModal";
+import { formatPrice } from "../../utils/formatPrice";
+import type { Ubicacion, MetodoPagoCatalogo, SavedCard, CheckoutPayload } from "../../types/checkout";
 
 type Step = "location" | "payment" | "review";
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { ProductCard } from "../components/ProductCard";
-import FilterOptions from "../components/FilterOptions";
-import Breadcrumb from "../components/Breadcrumb";
+import { ProductList } from "../components/products/ProductList";
+import FilterOptions from "../components/products/FilterOptions";
+import Breadcrumb from "../components/products/Breadcrumb";
 import { fetchCategorias, fetchProductos } from "../api/productos";
 import { mapProducto } from "../lib/mapProduct";
 import { SORT_OPTIONS, type SortOption } from "../types/api";
@@ -27,8 +27,8 @@ const Catalog = () => {
                 const data = await fetchCategorias();
                 setCategories(data);
             } catch (err) {
-                if (err.message === "SERVER_ERROR") {
-                    setError("Problemas de conexión con el servidor.");
+                if (err instanceof Error) {
+                    setError(err.message);
                 } else {
                     setError("Ocurrió un error inesperado.");
                 }
@@ -110,7 +110,7 @@ const Catalog = () => {
                 )}
 
                 <div className="flex gap-8">
-                    <aside className="w-64 shrink-0 border border-gray-200 rounded-lg p-6">
+                    <aside   className="sticky top-20 h-fit w-64 shrink-0 border border-gray-200 rounded-lg p-6">
                         <FilterOptions
                             categories={categories}
                             selectedCategoryIds={selectedCategoryIds}
@@ -127,11 +127,10 @@ const Catalog = () => {
                             <p className="text-gray-500">Cargando...</p>
                         ) : products.length > 0 ? (
                             <>
-                                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                                    {products.map((product) => (
-                                        <ProductCard key={product.id} product={product} />
-                                    ))}
-                                </div>
+                                <ProductList
+                                    products={products}
+                                    emptyMessage="No hay productos con los filtros seleccionados."
+                                />
 
                                 {totalPages > 1 && (
                                     <div className="mt-8 flex items-center justify-center gap-4">
@@ -144,7 +143,7 @@ const Catalog = () => {
                                             Anterior
                                         </button>
                                         <span className="text-sm text-gray-600">
-                                            Página {page} de {totalPages}
+                                            {page} de {totalPages}
                                         </span>
                                         <button
                                             type="button"

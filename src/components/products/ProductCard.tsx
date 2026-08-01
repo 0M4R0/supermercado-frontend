@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCartIcon } from "lucide-react";
-import { ApiError } from "../lib/api";
-import { useCart } from "../context/CartContext";
-import { UseAuth } from "../context/AuthContext";
-import type { Product } from "../types/product";
-import { formatPrice } from "../utils/formatPrice";
+import { ApiError } from "../../lib/api";
+import { useCart } from "../../context/CartContext";
+import { UseAuth } from "../../context/AuthContext";
+import type { Product } from "../../types/product";
+import { formatPrice } from "../../utils/formatPrice";
 
 type ProductCardProps = {
     product: Product;

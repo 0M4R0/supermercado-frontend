@@ -1,5 +1,5 @@
-import type { Pedido } from "../types/checkout";
-import { formatPrice } from "../utils/formatPrice";
+import type { Pedido } from "../../types/checkout";
+import { formatPrice } from "../../utils/formatPrice";
 
 type OrderCardProps = {
     order: Pedido;

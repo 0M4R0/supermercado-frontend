@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ShoppingCart, X, Minus, Plus, Trash2 } from "lucide-react";
-import { useUI } from "../context/UIContext";
-import { useCart } from "../context/CartContext";
-import { UseAuth } from "../context/AuthContext";
-import { fetchProductoById } from "../api/productos";
+import { useUI } from "../../context/UIContext";
+import { useCart } from "../../context/CartContext";
+import { UseAuth } from "../../context/AuthContext";
+import { fetchProductoById } from "../../api/productos";
 import { CheckoutModal } from "./CheckoutModal";
-import { formatPrice } from "../utils/formatPrice";
+import { formatPrice } from "../../utils/formatPrice";
 
 function unwrapMaxStock(
     value: { max_stock: number } | { max_stock: number }[] | null | undefined

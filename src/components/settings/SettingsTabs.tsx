@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Loader2, Trash2Icon } from "lucide-react";
-import { UseAuth } from "../context/AuthContext";
-import { useUI } from "../context/UIContext";
-import { deleteUbicacion, fetchUbicaciones } from "../api/ubicaciones";
-import { fetchSavedCards, fetchMetodosPagoCatalogo } from "../api/paymentMethods";
-import { AddLocationModal } from "./AddLocationModal";
-import { AddCardModal } from "./AddCardModal";
-import type { Ubicacion, SavedCard } from "../types/checkout";
+import { UseAuth } from "../../context/AuthContext";
+import { useUI } from "../../context/UIContext";
+import { deleteUbicacion, fetchUbicaciones } from "../../api/ubicaciones";
+import { fetchSavedCards, fetchMetodosPagoCatalogo } from "../../api/paymentMethods";
+import { AddLocationModal } from "../modals/AddLocationModal";
+import { AddCardModal } from "../modals/AddCardModal";
+import type { Ubicacion, SavedCard } from "../../types/checkout";
 
 export const ProfileTab = () => {
     const { session } = UseAuth();
@@ -128,7 +128,7 @@ export const AddressesTab = () => {
                                     </div>
                                     <div>
                                         {/* Delete location button */}
-                                        <button 
+                                        <button
                                             onClick={() => handleDeleteUbicacion(u.id)}
                                             disabled={deletingId === u.id}
                                             className="p-1 hover:bg-red-500 hover:text-white rounded-lg transition text-red-500 cursor-pointer">
@@ -230,13 +230,14 @@ export const AppearanceTab = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h3 className="text-lg font-semibold mb-4">Preferencias de Apariencia</h3>
+                <p className="text-sm text-red-600 font-semibold pb-5">En proceso</p>
                 <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
                     <div>
                         <p className="font-medium">Modo oscuro</p>
                         <p className="text-sm text-gray-600">Cambia la apariencia de la aplicación</p>
                     </div>
                     <button
+                        disabled
                         onClick={toggleDarkMode}
                         className={`relative inline-flex h-8 w-14 items-center rounded-full transition ${
                             darkMode ? "bg-green-600" : "bg-gray-300"
@@ -250,7 +251,7 @@ export const AppearanceTab = () => {
                     </button>
                 </div>
             </div>
-        </div>
+      </div>
     );
 };
 
@@ -260,8 +261,9 @@ export const SecurityTab = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h3 className="text-lg font-semibold mb-4">Seguridad</h3>
+                <p className="text-sm text-red-600 font-semibold pb-5">En proceso</p>
                 <button
+                    disabled
                     onClick={() => setShowPasswordForm(!showPasswordForm)}
                     className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
                 >

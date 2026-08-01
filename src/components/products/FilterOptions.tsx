@@ -1,5 +1,5 @@
-import type { Category } from "../types/product";
-import type { SortOption } from "../types/api";
+import type { Category } from "../../types/product";
+import type { SortOption } from "../../types/api";
 
 type FilterOptionsProps = {
     categories: Category[];

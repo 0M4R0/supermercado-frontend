@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { ShoppingCart, Store } from "lucide-react";
-import { UseAuth } from "../context/AuthContext";
-import { useCart } from "../context/CartContext";
-import { useUI } from "../context/UIContext";
+import { UseAuth } from "../../context/AuthContext";
+import { useCart } from "../../context/CartContext";
+import { useUI } from "../../context/UIContext";
 import { UserDropdown } from "./UserDropdown";
 
 const Navbar = () => {

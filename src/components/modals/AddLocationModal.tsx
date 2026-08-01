@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { X, Loader2 } from "lucide-react";
-import { createUbicacion } from "../api/ubicaciones";
-import { UseAuth } from "../context/AuthContext";
-import type { Ubicacion } from "../types/checkout";
+import { createUbicacion } from "../../api/ubicaciones";
+import { UseAuth } from "../../context/AuthContext";
+import type { Ubicacion } from "../../types/checkout";
 
 type AddLocationModalProps = {
     onClose: () => void;

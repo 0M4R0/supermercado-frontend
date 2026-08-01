@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { Check, Minus, Plus, ShoppingCart } from "lucide-react";
-import Breadcrumb from "../components/Breadcrumb";
+import Breadcrumb from "../components/products/Breadcrumb";
 import { fetchProductoById } from "../api/productos";
 import { mapProducto } from "../lib/mapProduct";
 import { ApiError } from "../lib/api";
@@ -133,7 +133,7 @@ const ProductDetail = () => {
 
                 <div className="grid gap-10 lg:grid-cols-2">
                     {/* Product image */}
-                    <div className="bg-gray-100 rounded-2xl flex items-center justify-center p-8 min-h-[400px]">
+                    <div className="bg-gray-100 rounded-2xl flex items-center justify-center p-8 min-h-100">
                         {product.imageUrl ? (
                             <img
                                 src={product.imageUrl}
@@ -197,7 +197,7 @@ const ProductDetail = () => {
 
                         <div className="flex items-center gap-6 flex-wrap">
                             <div className="flex items-center border border-gray-200 rounded-lg">
-                                
+
                                 {/* Reduce quantity */}
                                 <button
                                     type="button"
@@ -207,7 +207,7 @@ const ProductDetail = () => {
                                 >
                                     <Minus className="h-4 w-4" />
                                 </button>
-                                <span className="px-4 py-2 min-w-[3rem] text-center font-medium">
+                                <span className="px-4 py-2 min-w-12 text-center font-medium">
                                     {quantity}
                                 </span>
 

@@ -1,7 +1,7 @@
 import { useCallback, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { X } from "lucide-react";
-import { useUI } from "../context/UIContext";
+import { useUI } from "../../context/UIContext";
 import {
     ProfileTab,
     AddressesTab,
@@ -41,7 +41,7 @@ export const SettingsOverlay = () => {
                 return <ProfileTab />;
         }
     };
-    
+
     const handleClose = useCallback(() => {
         closeOverlay();
         navigate("/home");

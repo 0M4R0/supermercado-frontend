@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Package, ArrowRight, Loader2 } from "lucide-react";
 import { UseAuth } from "../context/AuthContext";
 import { fetchPedidos } from "../api/pedidos";
-import { OrderCard } from "../components/OrderCard";
+import { OrderCard } from "../components/orders/OrderCard";
 import type { Pedido } from "../types/checkout";
 
 const PAGE_SIZE = 10;
@@ -34,7 +34,7 @@ export const Orders = () => {
     }, [session, page]);
 
     return (
-        <main className="min-h-screen bg-gray-50 pt-24 pb-12">
+        <main className="flex-1 pt-24 pb-12">
             <div className="max-w-4xl mx-auto px-4">
                 <div className="mb-8">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">Mis Pedidos</h1>
