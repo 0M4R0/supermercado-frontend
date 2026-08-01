@@ -36,6 +36,7 @@ export type ApiProducto = {
     created_at: string;
     producto_inventario?: ApiInventario | ApiInventario[] | null;
     producto_categoria?: ApiProductoCategoria[] | null;
+    producto_categorias?: ApiCategoriaEmbed[] | null;
     proveedores?: { nombre: string } | { nombre: string }[] | null;
 };
 

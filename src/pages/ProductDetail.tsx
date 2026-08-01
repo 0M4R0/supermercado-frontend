@@ -9,6 +9,8 @@ import { useCart } from "../context/CartContext";
 import { UseAuth } from "../context/AuthContext";
 import type { Product } from "../types/product";
 import { formatPrice } from "../utils/formatPrice";
+import CartSidePanel from "../components/cart/CartSidePanel";
+import { useUI } from "../context/UIContext";
 
 const ProductDetail = () => {
     const { id } = useParams<{ id: string }>();
@@ -20,7 +22,10 @@ const ProductDetail = () => {
     const [error, setError] = useState("");
     const [cartError, setCartError] = useState("");
     const [adding, setAdding] = useState(false);
-    const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(1);
+
+  const { cart } = useCart();
+  const { openOverlay } = useUI();
 
     useEffect(() => {
         if (!id) return;
@@ -66,7 +71,11 @@ const ProductDetail = () => {
                 return;
             }
 
+            // ADD TO CART
             await addToCart(Number(product.id), quantity);
+
+            // OPEN CART OVERLAY
+            openOverlay('cart');
         } catch (err) {
             if (err instanceof ApiError && err.status === 401) {
                 navigate("/login");
@@ -149,11 +158,11 @@ const ProductDetail = () => {
                     <div className="space-y-6">
 
                         {/* Show categories */}
-                        {product.category ? (
-                            <p className="text-sm text-gray-500">{product.category}</p>
-                        ) : (
-                            <p className="text-sm text-gray-500">Sin categoría</p>
-                        )}
+                        <p className="text-sm text-gray-500">
+                          {product?.categories?.length
+                            ? product.categories.map((cat) => cat.nombre).join(", ")
+                            : "Sin categoría"}
+                        </p>
 
                         <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
 
@@ -188,12 +197,12 @@ const ProductDetail = () => {
                                 <p className="text-gray-600 text-sm leading-relaxed">{product.description}</p>
                             </div>
                         )}
-
+                        {/*
                         {product.distributor && (
                             <p className="text-sm text-gray-600">
                                 Distribuido por <strong>{product.distributor}</strong>
                             </p>
-                        )}
+                        )}*/}
 
                         <div className="flex items-center gap-6 flex-wrap">
                             <div className="flex items-center border border-gray-200 rounded-lg">

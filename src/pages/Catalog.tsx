@@ -99,7 +99,7 @@ const Catalog = () => {
                 />
 
                 <h1 className="text-3xl font-bold text-gray-900">Catálogo</h1>
-                <p className="mt-1 text-sm text-gray-500 mb-6">
+                <p className="mt-1 text-sm text-gray-500 mb-4">
                     {loading
                         ? "Cargando productos..."
                         : `${total} producto${total !== 1 ? "s" : ""} encontrado${total !== 1 ? "s" : ""}`}

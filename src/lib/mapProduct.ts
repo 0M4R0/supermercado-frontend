@@ -7,6 +7,9 @@ function unwrapSingle<T>(value: T | T[] | null | undefined): T | undefined {
 }
 
 function extractCategories(producto: ApiProducto) {
+    if (producto.producto_categorias?.length) {
+        return producto.producto_categorias;
+    }
     return (producto.producto_categoria ?? []).flatMap((entry) => {
         const categoria = unwrapSingle(entry.categorias);
         return categoria ? [categoria] : [];
@@ -25,7 +28,7 @@ export function mapProducto(producto: ApiProducto): Product {
         price: producto.precio,
         description: producto.descripcion ?? undefined,
         imageUrl: producto.imagen_producto ?? undefined,
-        category: categorias[0]?.nombre,
+        categories: categorias,
         categoryIds: categorias.map((c) => c.id),
         distributor: proveedor?.nombre,
         inStock: stock > 0,

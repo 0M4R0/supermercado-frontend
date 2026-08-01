@@ -14,7 +14,7 @@ export default function Home() {
             <div className="space-y-6">
               <h1 className="text-4xl md:text-5xl font-bold text-foreground leading-tight">
                 Tu supermercado,<br />
-                <span className="text-green-500">en tu puerta</span>
+                <span className="text-green-500">a un click</span>
               </h1>
               <p className="text-lg text-muted-foreground leading-relaxed max-w-md">
                 Productos frescos de calidad, entregados en menos de dos horas. Sin complicaciones.

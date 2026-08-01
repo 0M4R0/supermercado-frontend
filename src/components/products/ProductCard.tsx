@@ -6,6 +6,7 @@ import { useCart } from "../../context/CartContext";
 import { UseAuth } from "../../context/AuthContext";
 import type { Product } from "../../types/product";
 import { formatPrice } from "../../utils/formatPrice";
+import { useUI } from "../../context/UIContext";
 
 type ProductCardProps = {
     product: Product;
@@ -15,6 +16,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
     const navigate = useNavigate();
     const { session } = UseAuth();
     const { addToCart } = useCart();
+    const { openOverlay } = useUI();
     const [adding, setAdding] = useState(false);
     const [error, setError] = useState("");
 
@@ -31,7 +33,11 @@ export const ProductCard = ({ product }: ProductCardProps) => {
                 return;
             }
 
+            // ADD TO CART
             await addToCart(Number(product.id), 1);
+
+            // OPEN CART OVERLAY
+            openOverlay('cart');
         } catch (err) {
             if (err instanceof ApiError && err.status === 401) {
                 navigate("/login");
@@ -66,12 +72,14 @@ export const ProductCard = ({ product }: ProductCardProps) => {
             </Link>
 
             <div className="p-4 space-y-3">
-                {product.category ? (
-                    <p className="text-xs uppercase tracking-wide text-gray-500">{product.category}</p>
-                ) : null}
+                {product.categories?.length ? (
+                    <p className="text-xs uppercase tracking-wide text-gray-500">{product.categories[0].nombre}</p>
+                ) : (
+                    <p className="text-xs uppercase tracking-wide text-gray-500">Sin categoría</p>
+                )}
 
                 <Link to={`/catalogo/${product.id}`}>
-                    <h3 className="text-lg font-semibold text-gray-900 hover:text-green-600 transition-colors">
+                    <h3 className="text-lg line-clamp-1 font-semibold text-gray-900 hover:text-green-600 transition-colors">
                         {product.name}
                     </h3>
                 </Link>
