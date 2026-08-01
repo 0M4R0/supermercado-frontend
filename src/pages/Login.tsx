@@ -19,7 +19,7 @@ const Login = () => {
         }
     }, [session, navigate]);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
 
@@ -45,6 +45,9 @@ const Login = () => {
                     alt="Supermarket"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
+
+                <div className="absolute inset-0 bg-black/40" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
 
                 <div className="absolute inset-0 bg-screen-700/60"></div>
 
@@ -86,18 +89,18 @@ const Login = () => {
                     <div>
                         <label htmlFor="password" className="block mb-2">contraseña:</label>
                         <div className="relative">
-                            <input 
+                            <input
                                 id="password"
                                 name="password"
                                 type={showPassword ? "text" : "password"}
-                                required 
+                                required
                                 placeholder="********"
-                                onChange={(e) => setPassword(e.target.value)} 
+                                onChange={(e) => setPassword(e.target.value)}
                                 className="w-full border rounded-lg p-3"
                             />
                             <div className="absolute right-3 top-1/2 -translate-y-1/2">
                                 <button
-                                    type="button" 
+                                    type="button"
                                     className="cursor-pointer py-4 pr-2"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
@@ -113,7 +116,7 @@ const Login = () => {
                         </p>
                     )}
 
-                    <button 
+                    <button
                         type="submit"
                         disabled={loading}
                         className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 disabled:opacity-50 transition cursor-pointer"

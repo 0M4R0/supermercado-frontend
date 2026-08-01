@@ -24,7 +24,7 @@ const Signup = () => {
         Navigate("/home")
     }
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
         setLoading(true);
 
@@ -57,6 +57,9 @@ const Signup = () => {
                     alt="Supermarket"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
+
+                <div className="absolute inset-0 bg-black/40" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
 
                 <div className="absolute inset-0 bg-screen-700/60"></div>
 
@@ -171,7 +174,7 @@ const Signup = () => {
                         </button>
 
                     <div className="flex items-center gap-2 justify-center">
-                        <input  
+                        <input
                             type="checkbox"
                             className="w-4 h-4"
                             id="acceptTerms"
@@ -183,7 +186,7 @@ const Signup = () => {
                             Aceptos los {" "}
                         </label>
 
-                        <button 
+                        <button
                             type="button"
                             className="text-green-600 font-bold cursor-pointer"
                             onClick={() => window.open("https://www.google.com", "_blank")}
