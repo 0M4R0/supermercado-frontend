@@ -21,7 +21,7 @@ export default function Home() {
               </p>
               <div className="flex items-center gap-3 mx-auto w-fit">
                 <button onClick={() => navigate("/catalogo")}
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors shadow-sm">
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-700 transition-colors shadow-sm cursor-pointer">
                   Explorar productos <ArrowRight size={16} />
                 </button>
               </div>

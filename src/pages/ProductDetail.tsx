@@ -225,7 +225,7 @@ const ProductDetail = () => {
 
                             {/* Show subtotal */}
                             <p className="text-sm text-gray-600">
-                                Subtotal: <strong>{formatPrice(Number(subtotal))}</strong>
+                                Total: <strong>{formatPrice(Number(subtotal))}</strong>
                             </p>
                         </div>
 
