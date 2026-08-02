@@ -70,69 +70,70 @@ export const SettingsOverlay = () => {
                 onClick={handleClose}
             >
                 <div
-                    className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-hidden flex"
-                    onClick={(e) => e.stopPropagation()}
-                >
-                    {/* Sidebar */}
-                    <div className="hidden md:flex w-64 bg-gray-50 border-r border-gray-200 flex-col">
-                        <div className="p-6 border-b border-gray-200">
-                            <h2 className="text-xl font-bold text-gray-900">Configuración</h2>
-                        </div>
+                        className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[85vh] overflow-hidden flex"
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        {/* Sidebar */}
+                        <div className="hidden md:flex w-64 bg-gray-50 border-r border-gray-200 flex-col">
+                            <div className="p-4 border-b border-gray-200">
+                                <h2 className="text-xl font-bold text-gray-900">Configuración</h2>
+                                <p className="text-sm text-gray-500 mt-0.5">Administra tu cuenta</p>
+                            </div>
 
-                        <nav className="flex-1 overflow-y-auto p-4 space-y-2">
-                            {tabs.map((tab) => (
-                                <button
-                                    key={tab.id}
-                                    onClick={() => setActiveTab(tab.id)}
-                                    className={`w-full cursor-pointer text-left px-4 py-3 rounded-lg font-medium transition ${
-                                        activeTab === tab.id
-                                            ? "bg-green-100 text-green-700"
-                                            : "text-gray-700 hover:bg-gray-100"
-                                    }`}
-                                >
-                                    {tab.label}
-                                </button>
-                            ))}
-                        </nav>
-                    </div>
-
-                    {/* Main Content */}
-                    <div className="flex-1 flex flex-col">
-                        {/* Header with close button */}
-                        <div className="flex items-center justify-between p-4.5 border-b border-gray-200 bg-gray-50">
-                            <h3 className="text-xl font-semibold text-gray-900">
-                                {tabs.find((t) => t.id === activeTab)?.label}
-                            </h3>
-                            <button
-                                onClick={handleClose}
-                                className="p-2 hover:bg-gray-200 rounded-lg transition text-gray-600 cursor-pointer"
-                                aria-label="Cerrar"
-                            >
-                                <X size={24} />
-                            </button>
-                        </div>
-
-                        {/* Tab content */}
-                        <div className="order-2 min-[770px]:order-1 flex-1 overflow-y-auto p-6">
-                            {renderTabContent()}
-                        </div>
-
-                        {/* Mobile tab selector */}
-                        <div className="order-1 md:hidden border-t border-gray-200 p-4 bg-gray-50">
-                            <select
-                                value={activeTab}
-                                onChange={(e) => setActiveTab(e.target.value as TabType)}
-                                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                            >
+                            <nav className="flex-1 overflow-y-auto p-4 space-y-1.5">
                                 {tabs.map((tab) => (
-                                    <option key={tab.id} value={tab.id}>
+                                    <button
+                                        key={tab.id}
+                                        onClick={() => setActiveTab(tab.id)}
+                                        className={`w-full cursor-pointer text-left px-4 py-2.5 rounded-xl font-medium transition ${
+                                            activeTab === tab.id
+                                                ? "bg-gray-300 text-black shadow-sm"
+                                                : "text-gray-700 hover:bg-gray-100"
+                                        }`}
+                                    >
                                         {tab.label}
-                                    </option>
+                                    </button>
                                 ))}
-                            </select>
+                            </nav>
+                        </div>
+
+                        {/* Main Content */}
+                        <div className="flex-1 flex flex-col">
+                            {/* Header with close button */}
+                            <div className="flex items-center justify-between p-5.5 border-b border-gray-200 bg-gray-50">
+                                <h3 className="text-xl font-semibold text-gray-900">
+                                    {tabs.find((t) => t.id === activeTab)?.label}
+                                </h3>
+                                <button
+                                    onClick={handleClose}
+                                    className="p-2 hover:bg-gray-200 rounded-lg transition text-gray-600 cursor-pointer"
+                                    aria-label="Cerrar"
+                                >
+                                    <X size={24} />
+                                </button>
+                            </div>
+
+                            {/* Tab content */}
+                            <div className="order-2 min-[770px]:order-1 flex-1 overflow-y-auto p-6 bg-gray-50/50">
+                                {renderTabContent()}
+                            </div>
+
+                            {/* Mobile tab selector */}
+                            <div className="order-1 md:hidden border-t border-gray-200 p-4 bg-gray-50">
+                                <select
+                                    value={activeTab}
+                                    onChange={(e) => setActiveTab(e.target.value as TabType)}
+                                    className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm font-medium bg-white focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
+                                >
+                                    {tabs.map((tab) => (
+                                        <option key={tab.id} value={tab.id}>
+                                            {tab.label}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </>
     );

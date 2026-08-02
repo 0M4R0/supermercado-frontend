@@ -45,7 +45,7 @@ export const AddLocationModal = ({ onClose, onCreated }: AddLocationModalProps) 
                 direccion_extra: direccionExtra.trim() || undefined,
             });
             onCreated(ubicacion);
-        } catch (err ) {
+        } catch {
             setError("Error al crear dirección");
         } finally {
             setLoading(false);
@@ -100,20 +100,20 @@ export const AddLocationModal = ({ onClose, onCreated }: AddLocationModalProps) 
                         />
                     </div>
 
-                    {error && <p className="text-sm text-red-600">{error}</p>}
+                    {error && <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-3 py-2">{error}</p>}
 
                     <div className="flex gap-3 pt-2">
                         <button
                             type="button"
                             onClick={handleClose}
-                            className="flex-1 px-4 py-2.5 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition cursor-pointer"
+                            className="flex-1 px-4 py-2.5 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 transition cursor-pointer"
                         >
                             Cancelar
                         </button>
                         <button
                             type="submit"
                             disabled={loading}
-                            className="flex-1 px-4 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition disabled:opacity-50 cursor-pointer"
+                            className="flex-1 px-4 py-2.5 bg-green-600 text-white rounded-xl font-medium hover:bg-green-700 transition disabled:opacity-50 cursor-pointer active:scale-[0.98]"
                         >
                             {loading ? <Loader2 size={18} className="animate-spin mx-auto" /> : "Guardar"}
                         </button>

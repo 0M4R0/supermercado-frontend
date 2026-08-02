@@ -6,17 +6,19 @@ const Footer = () => {
 
     return (
         <footer className="mt-auto bg-white border-t border-gray-200">
-            <section className="max-w-7xl mx-auto px-6 py-10 flex flex-wrap justify-between gap-8">
+            <section className="max-w-7xl mx-auto px-6 py-12 flex flex-wrap justify-between gap-8">
                 {/* First Column */}
                 <div className="w-64">
                     <Link
                         to="/home"
                         className="flex items-center gap-2 font-bold text-gray-900 text-sm"
                     >
-                        <Store size={20} className="text-green-600" />
+                        <div className="w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center">
+                            <Store size={18} className="text-green-600" />
+                        </div>
                         <span>Supermercado</span>
                     </Link>
-                    <p className="mt-2 text-sm text-gray-600">
+                    <p className="mt-3 text-sm text-gray-600 leading-relaxed">
                         Tu supermercado online de confianza. Productos frescos, entrega rápida.
                     </p>
                 </div>
@@ -25,9 +27,9 @@ const Footer = () => {
                 <div className="w-40">
                     <h3 className="font-semibold text-gray-900 mb-3">Navegación</h3>
                     <ul className="space-y-2 text-sm text-gray-600">
-                        <li><Link to="/home" className="hover:text-green-600 transition">Home</Link></li>
-                        <li><Link to="/catalogo" className="hover:text-green-600 transition">Catálogo</Link></li>
-                        <li><Link to="/cuenta/pedidos" className="hover:text-green-600 transition">Pedidos</Link></li>
+                        <li><Link to="/home" className="hover:text-green-600 transition-colors">Home</Link></li>
+                        <li><Link to="/catalogo" className="hover:text-green-600 transition-colors">Catálogo</Link></li>
+                        <li><Link to="/cuenta/pedidos" className="hover:text-green-600 transition-colors">Pedidos</Link></li>
                     </ul>
                 </div>
 
@@ -35,10 +37,10 @@ const Footer = () => {
                 <div className="w-48">
                     <h3 className="font-semibold text-gray-900 mb-3">Legal</h3>
                     <ul className="space-y-2 text-sm text-gray-600">
-                        <li>Términos de uso</li>
-                        <li>Política de privacidad</li>
-                        <li>Política de cookies</li>
-                        <li>Aviso legal</li>
+                        <li className="hover:text-gray-900 transition-colors cursor-pointer">Términos de uso</li>
+                        <li className="hover:text-gray-900 transition-colors cursor-pointer">Política de privacidad</li>
+                        <li className="hover:text-gray-900 transition-colors cursor-pointer">Política de cookies</li>
+                        <li className="hover:text-gray-900 transition-colors cursor-pointer">Aviso legal</li>
                     </ul>
                 </div>
             </section>

@@ -124,43 +124,43 @@ export const CartSidePanel = () => {
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4">
-          {!session ? (
-            <div className="flex flex-col items-center justify-center h-full text-center gap-4">
-              <ShoppingCart size={56} className="text-gray-300" />
-              <p className="text-gray-600 text-lg font-medium">
-                Debe iniciar sesión para utilizar el carrito
-              </p>
-              <button
-                onClick={handleLogin}
-                className="bg-green-600 text-white px-6 py-2.5 rounded-lg hover:bg-green-700 transition font-medium cursor-pointer"
-              >
-                Iniciar sesión
-              </button>
-            </div>
-          ) : !cart || cart.articulos.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-center gap-4">
-              <ShoppingCart size={56} className="text-gray-300" />
-              <p className="text-black-600 text-lg font-bold">
-                Tu carrito está vacío
-              </p>
-              <p className="text-gray-600 text-sm font-medium">
-                Agrega productos para comenzar
-              </p>
-              <button
-                onClick={handleGoToCatalog}
-                className="bg-green-600 text-white px-6 py-2.5 rounded-lg hover:bg-green-700 transition font-medium cursor-pointer"
-              >
-                Ver catálogo
-              </button>
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {cart.articulos.map((item) => (
-                <div
-                  key={item.articulo_carrito_id}
-                  className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg"
-                >
+<div className="flex-1 overflow-y-auto p-4">
+                    {!session ? (
+                        <div className="flex flex-col items-center justify-center h-full text-center gap-4">
+                            <ShoppingCart size={56} className="text-gray-300" />
+                            <p className="text-gray-600 text-lg font-medium">
+                                Debe iniciar sesión para utilizar el carrito
+                            </p>
+                            <button
+                                onClick={handleLogin}
+                                className="bg-green-600 text-white px-6 py-2.5 rounded-xl hover:bg-green-700 transition font-medium cursor-pointer"
+                            >
+                                Iniciar sesión
+                            </button>
+                        </div>
+                    ) : !cart || cart.articulos.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center h-full text-center gap-4">
+                            <ShoppingCart size={56} className="text-gray-300" />
+                            <p className="text-black-600 text-lg font-bold">
+                                Tu carrito está vacío
+                            </p>
+                            <p className="text-gray-600 text-sm font-medium">
+                                Agrega productos para comenzar
+                            </p>
+                            <button
+                                onClick={handleGoToCatalog}
+                                className="bg-green-600 text-white px-6 py-2.5 rounded-xl hover:bg-green-700 transition font-medium cursor-pointer"
+                            >
+                                Ver catálogo
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="space-y-4">
+                            {cart.articulos.map((item) => (
+                                <div
+                                    key={item.articulo_carrito_id}
+                                    className="flex items-center gap-3 p-3 bg-gray-50 rounded-xl"
+                                >
                   {item.productos?.imagen_producto ? (
                     <img
                       src={item.productos.imagen_producto}
@@ -247,12 +247,12 @@ export const CartSidePanel = () => {
                 {formatPrice(cart.subtotal)}
               </span>
             </div>
-            <button
-              onClick={() => setShowCheckout(true)}
-              className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold text-lg hover:bg-green-700 transition cursor-pointer"
-            >
-              Pagar
-            </button>
+<button
+                            onClick={() => setShowCheckout(true)}
+                            className="w-full bg-green-600 text-white py-3 rounded-xl font-semibold text-lg shadow-lg shadow-green-600/25 hover:bg-green-700 transition active:scale-[0.99] cursor-pointer"
+                        >
+                            Pagar
+                        </button>
           </div>
         )}
       </div>

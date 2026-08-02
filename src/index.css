@@ -1,1 +1,32 @@
 @import "tailwindcss";
+
+body {
+    @apply bg-gray-50 text-gray-900 antialiased;
+}
+
+::selection {
+    @apply bg-green-200 text-green-900;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(203 213 225) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(203 213 225);
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(148 163 184);
+}

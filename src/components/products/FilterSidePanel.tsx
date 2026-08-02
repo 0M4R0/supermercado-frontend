@@ -79,12 +79,12 @@ const FilterSidePanel = ({
         </div>
 
         <div className="border-t border-gray-200 p-4">
-          <button
-            onClick={closeOverlay}
-            className="w-full bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition cursor-pointer"
-          >
-            Ver resultados
-          </button>
+<button
+                        onClick={closeOverlay}
+                        className="w-full bg-green-600 text-white py-3 rounded-xl font-semibold shadow-lg shadow-green-600/25 hover:bg-green-700 transition active:scale-[0.99] cursor-pointer"
+                    >
+                        Ver resultados
+                    </button>
         </div>
       </div>
     </>

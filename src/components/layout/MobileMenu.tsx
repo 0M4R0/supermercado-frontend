@@ -82,11 +82,10 @@ export const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
 
       {isOpen && (
         <div
-          className={`fixed mt-2.5 left-0 right-0 z-50 h-full w-2/3 max-w-md bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
-            isOpen ? "translate-x-0" : "translate-x-full"
+          className={`fixed mt-2.5 left-0 h-full w-2/3 max-w-md bg-white shadow-2xl flex flex-col rounded-r-2xl overflow-hidden transition-transform duration-300 ease-in-out ${
+            isOpen ? "translate-x-0" : "-translate-x-full"
           }`}
         >
-          {" "}
           {session ? (
             <>
               <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100">
@@ -129,7 +128,7 @@ export const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
               <Link
                   to="/login"
                   onClick={onClose}
-                  className="flex items-center gap-2 *:text-gray-700 hover:text-gray-900 font-medium m-3"
+                  className="flex items-center gap-2 text-gray-700 hover:text-gray-900 font-medium m-3 px-3 py-2 rounded-xl hover:bg-gray-50 transition"
                 >
                   <LogIn size={18} className="text-gray-600" />
                   Iniciar sesión
@@ -138,7 +137,7 @@ export const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
               <Link
                   to="/signup"
                   onClick={onClose}
-                  className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition font-medium m-3"
+                  className="flex items-center gap-2 bg-green-600 text-white px-4 py-2.5 rounded-xl hover:bg-green-700 shadow-sm active:scale-[0.98] transition font-medium mx-3 cursor-pointer"
                 >
                   <UserPlus size={18} className="text-white" />
                   Registrarse

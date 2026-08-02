@@ -35,13 +35,13 @@ const FilterOptions = ({
                 ) : categories.length === 0 ? (
                     <p className="text-sm text-gray-500">No hay categorías disponibles.</p>
                 ) : (
-                    <ul className="space-y-2">
+                    <ul className="space-y-1">
                         {categories.map((category) => {
                             const isChecked = selectedCategoryIds.includes(category.id);
 
                             return (
                                 <li key={category.id}>
-                                    <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-700 hover:text-gray-900">
+                                    <label className="flex items-center gap-2.5 cursor-pointer text-sm text-gray-700 hover:text-gray-900 px-2 py-1.5 -mx-2 rounded-lg hover:bg-gray-50 transition">
                                         <input
                                             type="checkbox"
                                             checked={isChecked}
@@ -61,14 +61,14 @@ const FilterOptions = ({
                 <h3 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
                     Ordenar por
                 </h3>
-                <ul className="space-y-2">
+                <ul className="space-y-1">
                     {sortOptions.map((option) => {
                         const optionKey = `${option.order}-${option.dir}`;
                         const isSelected = sortKey === optionKey;
 
                         return (
                             <li key={optionKey}>
-                                <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-700 hover:text-gray-900">
+                                <label className="flex items-center gap-2 cursor-pointer text-sm text-gray-700 hover:text-gray-900 px-2 py-1.5 -mx-2 rounded-lg hover:bg-gray-50 transition">
                                     <input
                                         type="radio"
                                         name="sort"

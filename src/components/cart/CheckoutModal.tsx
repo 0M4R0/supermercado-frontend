@@ -385,7 +385,7 @@ export const CheckoutModal = ({ onClose, onComplete }: CheckoutModalProps) => {
                 {renderStepIndicator()}
 
                 {error && (
-                    <p className="text-sm text-red-600 mb-3 bg-red-50 p-2 rounded-lg">{error}</p>
+                    <p className="text-sm text-red-600 mb-3 bg-red-50 border border-red-100 p-3 rounded-xl">{error}</p>
                 )}
 
                 {renderStep()}
@@ -398,7 +398,7 @@ export const CheckoutModal = ({ onClose, onComplete }: CheckoutModalProps) => {
                                 else if (step === "payment") setStep("review");
                             }}
                             disabled={!isValid()}
-                            className="flex-1 px-4 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition disabled:opacity-50 cursor-pointer"
+                            className="flex-1 px-4 py-3 bg-green-600 text-white rounded-xl font-semibold shadow-lg shadow-green-600/25 hover:bg-green-700 active:scale-[0.99] transition disabled:opacity-50 disabled:shadow-none disabled:active:scale-100 cursor-pointer"
                         >
                             Continuar
                         </button>
@@ -406,7 +406,7 @@ export const CheckoutModal = ({ onClose, onComplete }: CheckoutModalProps) => {
                         <button
                             onClick={handleConfirm}
                             disabled={confirming}
-                            className="flex-1 px-4 py-2.5 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition disabled:opacity-50 cursor-pointer"
+                            className="flex-1 px-4 py-3 bg-green-600 text-white rounded-xl font-semibold shadow-lg shadow-green-600/25 hover:bg-green-700 active:scale-[0.99] transition disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:active:scale-100 cursor-pointer"
                         >
                             {confirming ? <Loader2 size={18} className="animate-spin mx-auto" /> : "Confirmar pedido"}
                         </button>

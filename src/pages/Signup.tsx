@@ -42,7 +42,7 @@ const Signup = () => {
             } else {
                 setError(error ?? "Signup failed. Please try again.");
             }
-        } catch (error) {
+        } catch {
             setError("An unexpected error occurred. Please try again.");
         } finally {
             setLoading(false);
@@ -60,8 +60,6 @@ const Signup = () => {
 
                 <div className="absolute inset-0 bg-black/40" />
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
-
-                <div className="absolute inset-0 bg-screen-700/60"></div>
 
                 <div className="relative z-10 flex flex-col items-center justify-center w-full text-white px-8">
                     <h1 className="text-5xl font-bold mb-4">
@@ -83,11 +81,11 @@ const Signup = () => {
                         </h2>
                     </div>
 
-                    <div className="flex flex-row w-full justify-between">
-                        <div>
-                            <label className="block mb-2" htmlFor="nombre">Nombre:</label>
+                    <div className="flex flex-col sm:flex-row w-full justify-between gap-4">
+                        <div className="flex-1">
+                            <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="nombre">Nombre:</label>
                             <input
-                                className="w-full border rounded-lg p-3"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                 id="nombre"
                                 type="text"
                                 required
@@ -96,10 +94,10 @@ const Signup = () => {
                             />
                         </div>
 
-                        <div>
-                            <label className="block mb-2" htmlFor="apellido">Apellido:</label>
+                        <div className="flex-1">
+                            <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="apellido">Apellido:</label>
                             <input
-                                className="w-full border rounded-lg p-3"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                                 type="text"
                                 id="apellido"
                                 required
@@ -110,9 +108,9 @@ const Signup = () => {
                     </div>
 
                     <div>
-                        <label className="block mb-2" htmlFor="email">Email:</label>
+                        <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="email">Email:</label>
                         <input
-                            className="w-full border rounded-lg p-3"
+                            className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                             id="email"
                             name="email"
                             type="email"
@@ -123,7 +121,7 @@ const Signup = () => {
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block mb-2">Contraseña:</label>
+                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-700">Contraseña:</label>
                         <div className="relative">
                             <input
                                 id="password"
@@ -132,22 +130,21 @@ const Signup = () => {
                                 required
                                 placeholder="********"
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full border rounded-lg p-3"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 pr-12 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                             />
-                            <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                                <button
-                                    type="button"
-                                    className="cursor-pointer py-4 pr-2"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                >
-                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                                </button>
-                            </div>
+                            <button
+                                type="button"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer p-2 text-gray-400 hover:text-gray-600 transition rounded-lg"
+                                onClick={() => setShowPassword(!showPassword)}
+                                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
                     </div>
 
                     <div>
-                        <label className="block mb-2" htmlFor="password">Confirmar contraseña:</label>
+                        <label className="block mb-2 text-sm font-medium text-gray-700" htmlFor="password">Confirmar contraseña:</label>
                             <input
                                 id="confirmPassword"
                                 name="confirmPassword"
@@ -155,50 +152,50 @@ const Signup = () => {
                                 required
                                 placeholder="********"
                                 onChange={(e) => setConfirmPassword(e.target.value)}
-                                className="w-full border rounded-lg p-3"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                             />
                     </div>
 
                     {error && (
-                        <p className="text-red-500 mt-4 text-center">
+                        <p className="text-sm text-red-600 mt-4 text-center bg-red-50 rounded-lg py-2">
                             {error}
                         </p>
                     )}
 
                     <button
                         type="submit"
-                        className="w-full bg-green-600 text-white py-3 rounded-lg"
+                        className="w-full bg-green-600 text-white py-3.5 rounded-xl font-semibold hover:bg-green-700 transition shadow-sm disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer active:scale-[0.99]"
                             disabled={loading}
                         >
-                            {loading ? "Creando..." : "Crear"}
+                            {loading ? "Creando..." : "Crear cuenta"}
                         </button>
 
-                    <div className="flex items-center gap-2 justify-center">
+                    <div className="flex items-center gap-2 justify-center text-sm text-gray-600">
                         <input
                             type="checkbox"
-                            className="w-4 h-4"
+                            className="w-4 h-4 rounded border-gray-300 text-green-600 focus:ring-green-500 accent-green-600"
                             id="acceptTerms"
                             checked={acceptTerms}
                             onChange={(e) => setAcceptTerms(e.target.checked)}
                             />
 
                         <label htmlFor="acceptTerms">
-                            Aceptos los {" "}
+                            Acepto los{" "}
                         </label>
 
                         <button
                             type="button"
-                            className="text-green-600 font-bold cursor-pointer"
+                            className="text-green-600 font-bold cursor-pointer hover:underline"
                             onClick={() => window.open("https://www.google.com", "_blank")}
                         >
                             términos y condiciones
                         </button>
                     </div>
 
-                    <p className="text-center">
+                    <p className="text-center text-gray-600">
                         Ya tienes una cuenta?{" "}
-                        <Link to="/login" className="text-green-600 font-bold">
-                            Iniciar sesion
+                        <Link to="/login" className="text-green-600 font-bold hover:text-green-700 hover:underline">
+                            Iniciar sesión
                         </Link>
                     </p>
                 </form>

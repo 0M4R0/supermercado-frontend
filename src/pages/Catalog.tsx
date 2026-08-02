@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SlidersHorizontal } from "lucide-react";
+import { SlidersHorizontal, Loader2, PackageSearch } from "lucide-react";
 import { ProductList } from "../components/products/ProductList";
 import FilterOptions from "../components/products/FilterOptions";
 import FilterSidePanel from "../components/products/FilterSidePanel";
@@ -102,28 +102,36 @@ const Catalog = () => {
                     ]}
                 />
 
-                <h1 className="text-3xl font-bold text-gray-900">Catálogo</h1>
-                <p className="mt-1 text-sm text-gray-500 mb-4">
-                    {loading
-                        ? "Cargando productos..."
-                        : `${total} producto${total !== 1 ? "s" : ""} encontrado${total !== 1 ? "s" : ""}`}
-                </p>
+                <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+                    <h1 className="text-3xl font-bold text-gray-900">Catálogo</h1>
+                    {loading ? (
+                        <span className="inline-flex items-center gap-2 text-sm text-gray-500 bg-white border border-gray-200 rounded-full px-4 py-1.5 shadow-sm">
+                            <Loader2 size={14} className="animate-spin" />
+                            Cargando productos...
+                        </span>
+                    ) : (
+                        <span className="inline-flex items-center gap-2 text-sm text-green-700 bg-green-50 border border-green-200 rounded-full px-4 py-1.5 font-medium">
+                            <PackageSearch size={15} />
+                            {total} producto{total !== 1 ? "s" : ""}
+                        </span>
+                    )}
+                </div>
 
                 {error && (
-                    <p className="mb-4 text-sm text-red-600">{error}</p>
+                    <p className="mb-4 text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-3">{error}</p>
                 )}
 
                 <div className="flex flex-col gap-4 min-[770px]:flex-row min-[770px]:gap-8">
                     <button
                         type="button"
                         onClick={() => openOverlay("filters")}
-                        className="flex min-[770px]:hidden items-center justify-center gap-2 w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer"
+                        className="flex min-[770px]:hidden items-center justify-center gap-2 w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm font-semibold text-gray-700 bg-white shadow-sm hover:bg-gray-50 hover:border-gray-300 transition cursor-pointer active:scale-[0.99]"
                     >
-                        <SlidersHorizontal size={18} />
+                        <SlidersHorizontal size={18} className="text-green-600" />
                         Filtros
                     </button>
 
-                    <aside className="hidden min-[770px]:block sticky top-20 h-fit w-64 shrink-0 border border-gray-200 rounded-lg p-6">
+                    <aside className="hidden min-[770px]:block sticky top-20 h-fit w-64 shrink-0 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
                         <FilterOptions
                             categories={categories}
                             selectedCategoryIds={selectedCategoryIds}
@@ -137,7 +145,9 @@ const Catalog = () => {
 
                     <div className="flex-1">
                         {loading ? (
-                            <p className="text-gray-500">Cargando...</p>
+                            <div className="flex justify-center py-24">
+                                <Loader2 size={32} className="animate-spin text-green-600" />
+                            </div>
                         ) : products.length > 0 ? (
                             <>
                                 <ProductList
@@ -146,32 +156,35 @@ const Catalog = () => {
                                 />
 
                                 {totalPages > 1 && (
-                                    <div className="mt-8 flex items-center justify-center gap-4">
+                                    <div className="mt-10 flex items-center justify-center gap-4">
                                         <button
                                             type="button"
                                             disabled={page <= 1}
                                             onClick={() => setPage((p) => p - 1)}
-                                            className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                                            className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
                                         >
-                                            Anterior
+                                            ← Anterior
                                         </button>
-                                        <span className="text-sm text-gray-600">
+                                        <span className="text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-full px-4 py-1.5 shadow-sm">
                                             {page} de {totalPages}
                                         </span>
                                         <button
                                             type="button"
                                             disabled={page >= totalPages}
                                             onClick={() => setPage((p) => p + 1)}
-                                            className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                                            className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
                                         >
-                                            Siguiente
+                                            Siguiente →
                                         </button>
                                     </div>
                                 )}
                             </>
                         ) : (
-                            <div className="flex flex-col items-center justify-center h-full text-center">
-                                <p className="text-gray-500">
+                            <div className="flex flex-col items-center justify-center h-full min-h-96 text-center bg-white border border-gray-200 rounded-2xl p-10">
+                                <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                                    <PackageSearch size={28} className="text-gray-400" />
+                                </div>
+                                <p className="text-gray-600 font-medium">
                                     No hay productos con los filtros seleccionados.
                                 </p>
                             </div>

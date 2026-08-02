@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Check, Minus, Plus, ShoppingCart } from "lucide-react";
+import { Check, Minus, Plus, ShoppingCart, Loader2 } from "lucide-react";
 import Breadcrumb from "../components/products/Breadcrumb";
 import { fetchProductoById } from "../api/productos";
 import { mapProducto } from "../lib/mapProduct";
@@ -89,7 +89,9 @@ const ProductDetail = () => {
         return (
             <div className="py-20 px-4">
                 <div className="max-w-7xl mx-auto">
-                    <p>Cargando...</p>
+                    <div className="flex justify-center py-24">
+                        <Loader2 size={36} className="animate-spin text-green-600" />
+                    </div>
                 </div>
             </div>
         );
@@ -99,7 +101,7 @@ const ProductDetail = () => {
         return (
             <div className="py-20 px-4">
                 <div className="max-w-7xl mx-auto">
-                    <p className="text-red-600">{error}</p>
+                    <p className="text-red-600 bg-red-50 border border-red-100 rounded-xl px-4 py-3">{error}</p>
                 </div>
             </div>
         );
@@ -116,10 +118,12 @@ const ProductDetail = () => {
                             { label: "Producto no encontrado" },
                         ]}
                     />
-                    <p className="text-gray-600">El producto no existe.</p>
-                    <Link to="/catalogo" className="mt-4 inline-block text-green-600 hover:underline">
-                        Volver al catálogo
-                    </Link>
+                    <div className="bg-white border border-gray-200 rounded-2xl p-10 text-center shadow-sm">
+                        <p className="text-gray-600 font-medium">El producto no existe.</p>
+                        <Link to="/catalogo" className="mt-4 inline-flex items-center gap-2 text-green-600 font-semibold hover:text-green-700 bg-green-50 border border-green-200 rounded-lg px-5 py-2.5 transition">
+                            ← Volver al catálogo
+                        </Link>
+                    </div>
                 </div>
             </div>
         );
@@ -140,12 +144,12 @@ const ProductDetail = () => {
 
                 <div className="grid gap-10 lg:grid-cols-2">
                     {/* Product image */}
-                    <div className="bg-gray-100 rounded-2xl flex items-center justify-center p-8 min-h-100">
+                    <div className="bg-gray-100 rounded-3xl flex items-center justify-center p-8 min-h-100 border border-gray-200 shadow-sm">
                         {product.imageUrl ? (
                             <img
                                 src={product.imageUrl}
                                 alt={product.name}
-                                className="max-h-80 object-contain rounded-lg"
+                                className="max-h-80 object-contain rounded-xl"
                             />
                         ) : (
                             <div className="text-gray-400">Imagen no disponible</div>
@@ -156,11 +160,11 @@ const ProductDetail = () => {
                     <div className="space-y-6">
 
                         {/* Show categories */}
-                        <p className="text-sm text-gray-500">
+                        <span className="inline-block text-xs uppercase tracking-wider text-green-700 bg-green-50 border border-green-200 rounded-full px-3 py-1 font-semibold">
                           {product?.categories?.length
                             ? product.categories.map((cat) => cat.nombre).join(", ")
                             : "Sin categoría"}
-                        </p>
+                        </span>
 
                         <h1 className="text-3xl font-bold text-gray-900">{product.name}</h1>
 
@@ -174,19 +178,19 @@ const ProductDetail = () => {
                                 </span>
                             )}
                             {product.discount && (
-                                <span className="bg-red-100 text-red-600 text-sm font-semibold px-2 py-0.5 rounded-full">
+                                <span className="bg-red-100 text-red-600 text-sm font-semibold px-2.5 py-0.5 rounded-full">
                                     {product.discount}
                                 </span>
                             )}
                         </div>
 
                         {product.inStock ? (
-                            <p className="flex items-center gap-1.5 text-sm text-green-600">
+                            <p className="flex items-center gap-1.5 text-sm font-medium text-green-600">
                                 <Check className="h-4 w-4" />
                                 En stock
                             </p>
                         ) : (
-                            <p className="text-sm text-red-600">Sin stock</p>
+                            <p className="flex items-center text-sm font-medium text-red-600">Sin stock</p>
                         )}
 
                         {product.description && (
@@ -203,18 +207,18 @@ const ProductDetail = () => {
                         )}*/}
 
                         <div className="flex items-center gap-6 flex-wrap">
-                            <div className="flex items-center border border-gray-200 rounded-lg">
+                            <div className="flex items-center border border-gray-300 rounded-xl bg-white shadow-sm overflow-hidden">
 
                                 {/* Reduce quantity */}
                                 <button
                                     type="button"
                                     onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                                    className="p-2 hover:bg-gray-50 text-gray-600 cursor-pointer"
+                                    className="p-3 hover:bg-gray-50 text-gray-600 cursor-pointer transition"
                                     aria-label="Reducir cantidad"
                                 >
                                     <Minus className="h-4 w-4" />
                                 </button>
-                                <span className="px-4 py-2 min-w-12 text-center font-medium">
+                                <span className="px-4 py-2 min-w-12 text-center font-semibold text-gray-900 border-x border-gray-200">
                                     {quantity}
                                 </span>
 
@@ -223,7 +227,7 @@ const ProductDetail = () => {
                                     type="button"
                                     onClick={() => setQuantity((q) => q + 1)}
                                     disabled={quantity >= (product.maxStock ?? product.stock ?? 0)}
-                                    className="p-2 cursor-pointer hover:bg-gray-50 text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed"
+                                    className="p-3 cursor-pointer hover:bg-gray-50 text-gray-600 disabled:text-gray-300 disabled:cursor-not-allowed transition"
                                     aria-label="Aumentar cantidad"
                                 >
                                     <Plus className="h-4 w-4" />
@@ -232,19 +236,19 @@ const ProductDetail = () => {
 
                             {/* Show subtotal */}
                             <p className="text-sm text-gray-600">
-                                Total: <strong>{formatPrice(Number(subtotal))}</strong>
+                                Total: <strong className="text-gray-900">{formatPrice(Number(subtotal))}</strong>
                             </p>
                         </div>
 
                         {cartError && (
-                            <p className="text-sm text-red-600">{cartError}</p>
+                            <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-lg px-4 py-2.5">{cartError}</p>
                         )}
 
                         <button
                             type="button"
                             onClick={handleAddToCart}
                             disabled={adding || !product.inStock}
-                            className="w-full cursor-pointer flex items-center justify-center gap-2 rounded-lg bg-green-600 px-6 py-3 text-white font-semibold hover:bg-green-700 transition disabled:cursor-not-allowed disabled:opacity-60"
+                            className="w-full cursor-pointer flex items-center justify-center gap-2 rounded-xl bg-green-600 px-6 py-3.5 text-white font-semibold shadow-lg shadow-green-600/25 hover:bg-green-700 transition-all active:scale-[0.99] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100"
                         >
                             <ShoppingCart className="h-5 w-5" />
                             {adding ? "Agregando..." : "Agregar al carrito"}

@@ -42,12 +42,12 @@ const Navbar = () => {
                             closeMobileMenu();
                             openOverlay("cart");
                         }}
-                        className="relative flex items-center gap-1.5 text-gray-700 hover:text-green-600 transition cursor-pointer"
+                        className="relative flex items-center justify-center p-2 -mr-2 rounded-full text-gray-700 hover:text-green-600 hover:bg-green-50 transition cursor-pointer"
                         aria-label={`Carrito con ${totalItems} artículos`}
                     >
                         <ShoppingCart size={20} />
                         {totalItems > 0 && (
-                            <span className="absolute -top-2 -right-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-green-600 px-1 text-xs font-semibold text-white">
+                            <span className="absolute -top-0.5 -right-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-green-600 px-1 text-xs font-semibold text-white ring-2 ring-white">
                                 {totalItems}
                             </span>
                         )}

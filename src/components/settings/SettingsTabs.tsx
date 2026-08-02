@@ -58,7 +58,7 @@ export const ProfileTab = () => {
             <button
                 onClick={handleSave}
                 disabled={saving}
-                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 disabled:opacity-50 transition"
+                className="px-6 py-2.5 bg-green-600 text-white rounded-xl font-medium hover:bg-green-700 shadow-sm disabled:opacity-50 disabled:cursor-not-allowed transition active:scale-[0.98] cursor-pointer"
             >
                 {saving ? "Guardando..." : "Guardar cambios"}
             </button>
@@ -112,27 +112,29 @@ export const AddressesTab = () => {
                 ) : (
                     <div className="space-y-3">
                         {ubicaciones.map((u) => (
-                            <div key={u.id} className="p-4 border border-gray-200 rounded-lg hover:shadow-sm transition">
-                                <div className="flex flex-row justify-between items-center mb-2">
-                                    <div>
-                                        <p className="font-medium">{u.direccion}</p>
+                            <div key={u.id} className="p-4 border border-gray-200 rounded-xl hover:shadow-sm hover:border-gray-300 transition bg-white">
+                                <div className="flex flex-row justify-between items-center gap-3">
+                                    <div className="min-w-0">
+                                        <p className="font-medium text-gray-900 truncate">{u.direccion}</p>
                                         <p className="text-sm text-gray-600">
                                             {u.ciudad}, {u.provincia}
                                             {u.direccion_extra && ` — ${u.direccion_extra}`}
                                         </p>
                                         {u.por_defecto && (
-                                            <span className="inline-block mt-1 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
+                                            <span className="inline-block mt-1.5 text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">
                                                 Por defecto
                                             </span>
                                         )}
                                     </div>
-                                    <div>
+                                    <div className="shrink-0">
                                         {/* Delete location button */}
                                         <button
                                             onClick={() => handleDeleteUbicacion(u.id)}
                                             disabled={deletingId === u.id}
-                                            className="p-1 hover:bg-red-500 hover:text-white rounded-lg transition text-red-500 cursor-pointer">
-                                            <Trash2Icon></Trash2Icon>
+                                            className="p-2 hover:bg-red-500 hover:text-white rounded-lg transition text-red-500 cursor-pointer disabled:opacity-50"
+                                            aria-label="Eliminar dirección"
+                                        >
+                                            <Trash2Icon size={18} />
                                         </button>
                                     </div>
                                 </div>
@@ -143,9 +145,9 @@ export const AddressesTab = () => {
             </div>
             <button
                 onClick={() => setShowModal(true)}
-                className="px-6 py-2 border border-green-600 text-green-600 rounded-lg hover:bg-green-50 transition cursor-pointer"
+                className="px-6 py-2.5 border border-green-600 text-green-600 rounded-xl font-medium hover:bg-green-50 transition active:scale-[0.98] cursor-pointer"
             >
-                Agregar dirección
+                + Agregar dirección
             </button>
             {showModal && (
                 <AddLocationModal
@@ -199,8 +201,8 @@ export const PaymentMethodsTab = () => {
                 ) : (
                     <div className="space-y-3">
                         {cards.map((card) => (
-                            <div key={card.id} className="p-4 border border-gray-200 rounded-lg hover:shadow-sm transition">
-                                <p className="font-medium">{card.alias ?? "Tarjeta"} {card.marca && `(${card.marca})`}</p>
+                            <div key={card.id} className="p-4 border border-gray-200 rounded-xl hover:shadow-sm hover:border-gray-300 transition bg-white">
+                                <p className="font-medium text-gray-900">{card.alias ?? "Tarjeta"} {card.marca && `(${card.marca})`}</p>
                                 <p className="text-sm text-gray-600">**** {card.ultimos_4}</p>
                             </div>
                         ))}
@@ -209,9 +211,9 @@ export const PaymentMethodsTab = () => {
             </div>
             <button
                 onClick={() => setShowModal(true)}
-                className="px-6 py-2 border border-green-600 text-green-600 rounded-lg hover:bg-green-50 transition cursor-pointer"
+                className="px-6 py-2.5 border border-green-600 text-green-600 rounded-xl font-medium hover:bg-green-50 transition active:scale-[0.98] cursor-pointer"
             >
-                Agregar método de pago
+                + Agregar método de pago
             </button>
             {showModal && (
                 <AddCardModal
@@ -230,21 +232,21 @@ export const AppearanceTab = () => {
     return (
         <div className="space-y-6">
             <div>
-                <p className="text-sm text-red-600 font-semibold pb-5">En proceso</p>
-                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                <span className="inline-block text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-3 py-1 mb-5">En proceso</span>
+                <div className="flex items-center justify-between p-4 border border-gray-200 rounded-xl bg-white">
                     <div>
-                        <p className="font-medium">Modo oscuro</p>
+                        <p className="font-medium text-gray-900">Modo oscuro</p>
                         <p className="text-sm text-gray-600">Cambia la apariencia de la aplicación</p>
                     </div>
                     <button
                         disabled
                         onClick={toggleDarkMode}
-                        className={`relative inline-flex h-8 w-14 items-center rounded-full transition ${
+                        className={`relative inline-flex h-8 w-14 items-center rounded-full transition cursor-not-allowed ${
                             darkMode ? "bg-green-600" : "bg-gray-300"
                         }`}
                     >
                         <span
-                            className={`inline-block h-6 w-6 transform rounded-full bg-white transition ${
+                            className={`inline-block h-6 w-6 transform rounded-full bg-white shadow transition ${
                                 darkMode ? "translate-x-7" : "translate-x-1"
                             }`}
                         />
@@ -260,34 +262,34 @@ export const SecurityTab = () => {
 
     return (
         <div className="space-y-6">
-            <div>
-                <p className="text-sm text-red-600 font-semibold pb-5">En proceso</p>
+            <div className="flex flex-col">
+                <span className="inline-block w-22 text-xs font-semibold text-amber-700 bg-amber-50 border border-amber-200 rounded-full px-3 py-1 mb-4">En proceso</span>
                 <button
                     disabled
                     onClick={() => setShowPasswordForm(!showPasswordForm)}
-                    className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
+                    className="px-6 py-2.5 border border-gray-300 rounded-xl text-gray-700 font-medium hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 transition"
                 >
                     Cambiar contraseña
                 </button>
             </div>
             {showPasswordForm && (
-                <div className="space-y-4 p-4 bg-gray-50 rounded-lg">
+                <div className="space-y-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
                     <input
                         type="password"
                         placeholder="Contraseña actual"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                     />
                     <input
                         type="password"
                         placeholder="Nueva contraseña"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                     />
                     <input
                         type="password"
                         placeholder="Confirmar nueva contraseña"
-                        className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                        className="w-full px-4 py-2.5 border border-gray-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                     />
-                    <button className="w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+                    <button className="w-full px-4 py-2.5 bg-green-600 text-white rounded-xl font-medium hover:bg-green-700 cursor-pointer transition">
                         Actualizar contraseña
                     </button>
                 </div>

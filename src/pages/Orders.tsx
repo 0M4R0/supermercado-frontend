@@ -47,17 +47,17 @@ export const Orders = () => {
 
                 {loading ? (
                     <div className="flex justify-center py-20">
-                        <Loader2 size={32} className="animate-spin text-gray-400" />
+                        <Loader2 size={32} className="animate-spin text-green-600" />
                     </div>
                 ) : error ? (
-                    <div className="bg-white rounded-lg shadow-sm p-12 text-center">
-                        <p className="text-red-600">{error}</p>
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-12 text-center">
+                        <p className="text-red-600 bg-red-50 border border-red-100 rounded-lg inline-block px-4 py-2">{error}</p>
                     </div>
                 ) : orders.length === 0 ? (
-                    <div className="bg-white rounded-lg shadow-sm p-12 text-center">
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-12 text-center">
                         <div className="flex justify-center mb-4">
-                            <div className="p-4 bg-gray-100 rounded-full">
-                                <Package size={32} className="text-gray-400" />
+                            <div className="p-4 bg-green-50 rounded-full">
+                                <Package size={32} className="text-green-500" />
                             </div>
                         </div>
                         <h2 className="text-xl font-semibold text-gray-900 mb-2">
@@ -68,7 +68,7 @@ export const Orders = () => {
                         </p>
                         <Link
                             to="/catalogo"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+                            className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white rounded-xl font-semibold hover:bg-green-700 shadow-lg shadow-green-600/25 transition active:scale-[0.98] cursor-pointer"
                         >
                             Ir al catálogo
                             <ArrowRight size={18} />
@@ -77,8 +77,8 @@ export const Orders = () => {
                 ) : (
                     <div className="flex flex-col space-y-4 gap-2">
                         {orders.map((order) => (
-                          <Link key={order.pedido_id} to={`/cuenta/pedidos/${order.codigo_seguimiento}`} className="text-gray-600 hover:text-gray-900">
-                            <OrderCard key={order.pedido_id} order={order} />
+                          <Link key={order.pedido_id} to={`/cuenta/pedidos/${order.codigo_seguimiento}`}>
+                            <OrderCard order={order} />
                           </Link>
                         ))}
 
@@ -88,20 +88,20 @@ export const Orders = () => {
                                     type="button"
                                     disabled={page <= 1}
                                     onClick={() => setPage((p) => p - 1)}
-                                    className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                                    className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
                                 >
-                                    Anterior
+                                    ← Anterior
                                 </button>
-                                <span className="text-sm text-gray-600">
+                                <span className="text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-full px-4 py-1.5 shadow-sm">
                                     Página {page} de {totalPages}
                                 </span>
                                 <button
                                     type="button"
                                     disabled={page >= totalPages}
                                     onClick={() => setPage((p) => p + 1)}
-                                    className="rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+                                    className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
                                 >
-                                    Siguiente
+                                    Siguiente →
                                 </button>
                             </div>
                         )}

@@ -49,8 +49,6 @@ const Login = () => {
                 <div className="absolute inset-0 bg-black/40" />
                 <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
 
-                <div className="absolute inset-0 bg-screen-700/60"></div>
-
                 <div className="relative z-10 flex flex-col items-center justify-center w-full text-white px-8">
                     <h1 className="text-5xl font-bold mb-4">
                         Mercado Verde
@@ -70,11 +68,11 @@ const Login = () => {
                             Bienvenido de vuelta
                         </h2>
 
-                        <p className="text-gray-500 mt-2">Inicia sesion para continuar</p>
+                        <p className="text-gray-500 mt-2">Inicia sesión para continuar</p>
                     </div>
 
                     <div>
-                        <label htmlFor="email" className="block mb-2">Email:</label>
+                        <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">Email:</label>
                         <input
                             id="email"
                             name="email"
@@ -82,12 +80,12 @@ const Login = () => {
                             required
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="example@email.com"
-                            className="w-full border rounded-lg p-3"
+                            className="w-full rounded-xl border border-gray-300 px-4 py-3 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                             />
                     </div>
 
                     <div>
-                        <label htmlFor="password" className="block mb-2">contraseña:</label>
+                        <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-700">Contraseña:</label>
                         <div className="relative">
                             <input
                                 id="password"
@@ -96,22 +94,21 @@ const Login = () => {
                                 required
                                 placeholder="********"
                                 onChange={(e) => setPassword(e.target.value)}
-                                className="w-full border rounded-lg p-3"
+                                className="w-full rounded-xl border border-gray-300 px-4 py-3 pr-12 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500 transition"
                             />
-                            <div className="absolute right-3 top-1/2 -translate-y-1/2">
-                                <button
-                                    type="button"
-                                    className="cursor-pointer py-4 pr-2"
-                                    onClick={() => setShowPassword(!showPassword)}
-                                >
-                                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                                </button>
-                            </div>
+                            <button
+                                type="button"
+                                className="absolute right-2 top-1/2 -translate-y-1/2 cursor-pointer p-2 text-gray-400 hover:text-gray-600 transition rounded-lg"
+                                onClick={() => setShowPassword(!showPassword)}
+                                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                            >
+                                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                            </button>
                         </div>
                     </div>
 
                     {error && (
-                        <p className="text-red-500 mt-4 text-center">
+                        <p className="text-sm text-red-600 mt-4 text-center bg-red-50 rounded-lg py-2">
                             {error}
                         </p>
                     )}
@@ -119,15 +116,15 @@ const Login = () => {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 disabled:opacity-50 transition cursor-pointer"
+                        className="w-full bg-green-600 text-white py-3.5 rounded-xl font-semibold hover:bg-green-700 disabled:opacity-50 transition shadow-sm disabled:cursor-not-allowed cursor-pointer active:scale-[0.99]"
                     >
-                    {loading ? "Iniciando..." : "Iniciar sesion"}
+                    {loading ? "Iniciando..." : "Iniciar sesión"}
                     </button>
 
-                    <p className="text-center">
+                    <p className="text-center text-gray-600">
                         No tienes una cuenta?{" "}
-                        <Link to="/signup" className="text-green-600 font-bold">
-                            Registrate
+                        <Link to="/signup" className="text-green-600 font-bold hover:text-green-700 hover:underline">
+                            Regístrate
                         </Link>
                     </p>
                 </form>
