@@ -129,16 +129,18 @@ export const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
               <Link
                   to="/login"
                   onClick={onClose}
-                  className="text-gray-700 hover:text-gray-900 font-medium m-3"
-              >
+                  className="flex items-center gap-2 *:text-gray-700 hover:text-gray-900 font-medium m-3"
+                >
+                  <LogIn size={18} className="text-gray-600" />
                   Iniciar sesión
               </Link>
 
               <Link
                   to="/signup"
                   onClick={onClose}
-                  className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition font-medium m-3"
-              >
+                  className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition font-medium m-3"
+                >
+                  <UserPlus size={18} className="text-white" />
                   Registrarse
               </Link>
             </>
