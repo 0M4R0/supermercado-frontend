@@ -40,7 +40,7 @@ const Signup = () => {
             if (success) {
                 Navigate("/home");
             } else {
-                setError(error);
+                setError(error ?? "Signup failed. Please try again.");
             }
         } catch (error) {
             setError("An unexpected error occurred. Please try again.");

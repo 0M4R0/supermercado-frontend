@@ -28,7 +28,7 @@ const Login = () => {
             if (success) {
                 navigate("/home");
             } else {
-                setError(error);
+                setError(error ?? "Login failed. Please try again.");
             }
         } catch {
             setError("An unexpected error occurred. Please try again.");
