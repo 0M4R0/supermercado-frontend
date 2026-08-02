@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
+import { SlidersHorizontal } from "lucide-react";
 import { ProductList } from "../components/products/ProductList";
 import FilterOptions from "../components/products/FilterOptions";
+import FilterSidePanel from "../components/products/FilterSidePanel";
 import Breadcrumb from "../components/products/Breadcrumb";
 import { fetchCategorias, fetchProductos } from "../api/productos";
 import { mapProducto } from "../lib/mapProduct";
 import { SORT_OPTIONS, type SortOption } from "../types/api";
+import { useUI } from "../context/UIContext";
 import type { Category, Product } from "../types/product";
 
 const PAGE_SIZE = 20;
 
 const Catalog = () => {
+    const { openOverlay } = useUI();
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [total, setTotal] = useState(0);
@@ -109,8 +113,17 @@ const Catalog = () => {
                     <p className="mb-4 text-sm text-red-600">{error}</p>
                 )}
 
-                <div className="flex gap-8">
-                    <aside   className="sticky top-20 h-fit w-64 shrink-0 border border-gray-200 rounded-lg p-6">
+                <div className="flex flex-col gap-4 min-[770px]:flex-row min-[770px]:gap-8">
+                    <button
+                        type="button"
+                        onClick={() => openOverlay("filters")}
+                        className="flex min-[770px]:hidden items-center justify-center gap-2 w-full border border-gray-200 rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 cursor-pointer"
+                    >
+                        <SlidersHorizontal size={18} />
+                        Filtros
+                    </button>
+
+                    <aside className="hidden min-[770px]:block sticky top-20 h-fit w-64 shrink-0 border border-gray-200 rounded-lg p-6">
                         <FilterOptions
                             categories={categories}
                             selectedCategoryIds={selectedCategoryIds}
@@ -166,6 +179,16 @@ const Catalog = () => {
                     </div>
                 </div>
             </div>
+
+            <FilterSidePanel
+                categories={categories}
+                selectedCategoryIds={selectedCategoryIds}
+                onCategoryChange={handleCategoryChange}
+                sort={sort}
+                sortOptions={SORT_OPTIONS}
+                onSortChange={handleSortChange}
+                categoriesLoading={categoriesLoading}
+            />
         </div>
     );
 };
