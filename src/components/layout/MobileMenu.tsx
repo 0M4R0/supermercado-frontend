@@ -82,7 +82,7 @@ export const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
 
       {isOpen && (
         <div
-          className={`fixed left-0 right-0 z-50 h-full w-1/3 max-w-md bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
+          className={`fixed mt-2.5 left-0 right-0 z-50 h-full min-w-2/5 max-w-md bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
