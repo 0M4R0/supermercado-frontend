@@ -75,7 +75,7 @@ export const Orders = () => {
                         </Link>
                     </div>
                 ) : (
-                    <div className="space-y-4">
+                    <div className="flex flex-col space-y-4 gap-2">
                         {orders.map((order) => (
                           <Link key={order.pedido_id} to={`/cuenta/pedidos/${order.codigo_seguimiento}`} className="text-gray-600 hover:text-gray-900">
                             <OrderCard key={order.pedido_id} order={order} />
