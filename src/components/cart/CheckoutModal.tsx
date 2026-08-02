@@ -21,7 +21,7 @@ type CheckoutModalProps = {
 export const CheckoutModal = ({ onClose, onComplete }: CheckoutModalProps) => {
     const navigate = useNavigate();
     const { session } = UseAuth();
-    const { cart } = useCart();
+    const { cart, refreshCart } = useCart();
     const token = session!.access_token;
 
     const [step, setStep] = useState<Step>("location");
@@ -96,6 +96,10 @@ export const CheckoutModal = ({ onClose, onComplete }: CheckoutModalProps) => {
 
         try {
             await createOrder(token, payload);
+
+            // Refresh cart to clear it after successful checkout
+            await refreshCart();
+
             onComplete();
             navigate("/cuenta/pedidos");
         } catch (err) {
