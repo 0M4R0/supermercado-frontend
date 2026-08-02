@@ -82,7 +82,7 @@ export const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
 
       {isOpen && (
         <div
-          className={`fixed mt-2.5 left-0 right-0 z-50 h-full min-w-2/5 max-w-md bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
+          className={`fixed mt-2.5 left-0 right-0 z-50 h-full w-2/3 max-w-md bg-white shadow-2xl flex flex-col transition-transform duration-300 ease-in-out ${
             isOpen ? "translate-x-0" : "translate-x-full"
           }`}
         >
@@ -127,21 +127,19 @@ export const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
           ) : (
             <>
               <Link
-                to="/login"
-                onClick={onClose}
-                className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition"
+                  to="/login"
+                  onClick={onClose}
+                  className="text-gray-700 hover:text-gray-900 font-medium m-3"
               >
-                <LogIn size={18} className="text-gray-600" />
-                Iniciar sesión
+                  Iniciar sesión
               </Link>
 
               <Link
-                to="/signup"
-                onClick={onClose}
-                className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition"
+                  to="/signup"
+                  onClick={onClose}
+                  className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition font-medium m-3"
               >
-                <UserPlus size={18} className="text-gray-600" />
-                Registrarse
+                  Registrarse
               </Link>
             </>
           )}
