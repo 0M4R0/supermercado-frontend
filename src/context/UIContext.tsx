@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
 
-type OverlayType = "settings" | "cart" | "notifications" | null;
+type OverlayType = "settings" | "cart" | "filters" | "notifications" | null;
 
 interface UIContextType {
     activeOverlay: OverlayType;

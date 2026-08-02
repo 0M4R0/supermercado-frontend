@@ -113,12 +113,12 @@ export const SettingsOverlay = () => {
                         </div>
 
                         {/* Tab content */}
-                        <div className="flex-1 overflow-y-auto p-6">
+                        <div className="order-2 min-[770px]:order-1 flex-1 overflow-y-auto p-6">
                             {renderTabContent()}
                         </div>
 
                         {/* Mobile tab selector */}
-                        <div className="md:hidden border-t border-gray-200 p-4 bg-gray-50">
+                        <div className="order-1 md:hidden border-t border-gray-200 p-4 bg-gray-50">
                             <select
                                 value={activeTab}
                                 onChange={(e) => setActiveTab(e.target.value as TabType)}
