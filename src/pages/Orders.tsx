@@ -10,6 +10,9 @@ const PAGE_SIZE = 10;
 
 export const Orders = () => {
     const { session } = UseAuth();
+    // Depend on the token string, not the whole session object — Supabase
+    // recreates session on tab focus / auth events, which would re-fetch every time.
+    const token = session?.access_token;
     const [orders, setOrders] = useState<Pedido[]>([]);
     const [page, setPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
@@ -18,10 +21,11 @@ export const Orders = () => {
 
     useEffect(() => {
         const load = async () => {
-            if (!session) return;
+            if (!token) return;
             setLoading(true);
+            setError("");
             try {
-                const data = await fetchPedidos(session.access_token, page, PAGE_SIZE);
+                const data = await fetchPedidos(token, page, PAGE_SIZE);
                 setOrders(data.data);
                 setTotalPages(data.total_pages);
             } catch {
@@ -31,7 +35,7 @@ export const Orders = () => {
             }
         };
         load();
-    }, [session, page]);
+    }, [token, page]);
 
     return (
         <main className="flex-1 pt-24 pb-12">
@@ -73,7 +77,9 @@ export const Orders = () => {
                 ) : (
                     <div className="space-y-4">
                         {orders.map((order) => (
+                          <Link key={order.pedido_id} to={`/cuenta/pedidos/${order.codigo_seguimiento}`} className="text-gray-600 hover:text-gray-900">
                             <OrderCard key={order.pedido_id} order={order} />
+                          </Link>
                         ))}
 
                         {totalPages > 1 && (

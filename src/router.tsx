@@ -6,8 +6,8 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Orders from "./pages/Orders";
+import OrderDetails from "./pages/OrderDetails";
 import PrivateRoute from "./components/PrivateRoute";
-// import PrivateRoute from "./components/PrivateRoute";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +20,7 @@ export const router = createBrowserRouter([
             { path: "/catalogo", element: <Catalog /> },
             { path: "/catalogo/:id", element: <ProductDetail /> },
             { path: "/cuenta/pedidos", element: <PrivateRoute><Orders /></PrivateRoute> },
+            { path: "/cuenta/pedidos/:id", element: <PrivateRoute><OrderDetails /></PrivateRoute> },
             { path: "/cuenta/configuracion", element: <PrivateRoute><Home /></PrivateRoute> },
             // { path: "/supermercado", element: <PrivateRoute><Catalog /></PrivateRoute> }
         ]

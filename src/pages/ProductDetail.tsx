@@ -9,7 +9,6 @@ import { useCart } from "../context/CartContext";
 import { UseAuth } from "../context/AuthContext";
 import type { Product } from "../types/product";
 import { formatPrice } from "../utils/formatPrice";
-import CartSidePanel from "../components/cart/CartSidePanel";
 import { useUI } from "../context/UIContext";
 
 const ProductDetail = () => {
@@ -24,7 +23,6 @@ const ProductDetail = () => {
     const [adding, setAdding] = useState(false);
   const [quantity, setQuantity] = useState(1);
 
-  const { cart } = useCart();
   const { openOverlay } = useUI();
 
     useEffect(() => {

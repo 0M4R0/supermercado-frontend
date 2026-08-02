@@ -44,7 +44,7 @@ export const SettingsOverlay = () => {
 
     const handleClose = useCallback(() => {
         closeOverlay();
-        navigate("/home");
+        navigate(-1);
     }, [closeOverlay, navigate]);
 
     // Handle escape key

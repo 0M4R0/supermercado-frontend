@@ -87,7 +87,7 @@ export const UserDropdown = () => {
                     {/* Menu items */}
                     <button
                         onClick={handleMyOrders}
-                        className="w-full cursor-pointer flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition"
+                        className="w-full cursor-pointer flex items-center gap-3 px-4 py-2.5 text-sm text-black-700 hover:bg-gray-50 transition"
                     >
                         <ShoppingBag size={18} className="text-gray-600" />
                         <span>Mis pedidos</span>
@@ -95,7 +95,7 @@ export const UserDropdown = () => {
 
                     <button
                         onClick={handleSettings}
-                        className="w-full cursor-pointer flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition"
+                        className="w-full cursor-pointer flex items-center gap-3 px-4 py-2.5 text-sm text-black-700 hover:bg-gray-50 transition"
                     >
                         <Settings size={18} className="text-gray-600" />
                         <span>Configuración</span>
