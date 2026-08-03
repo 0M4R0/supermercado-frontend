@@ -3,14 +3,14 @@ import { fetchPedido } from "../api/pedidos";
 import { type PedidoDetail } from "../types/checkout";
 
 import { useEffect, useState } from "react";
-import { UseAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { ChevronLeft, CreditCard, MapPin, Loader2, PackageOpen } from "lucide-react";
 import { formatPrice } from "../utils/formatPrice";
 import { formatDate } from "../utils/formatDate";
 
 const OrderDetails = () => {
   const { id: codigoSeguimiento } = useParams<{ id: string }>();
-  const { session } = UseAuth();
+  const { session } = useAuth();
   const navigate = useNavigate();
   const token = session?.access_token;
 
@@ -81,7 +81,7 @@ const OrderDetails = () => {
             <button
               type="button"
               onClick={() => navigate(-1)}
-              className="mt-1 text-gray-400 hover:text-gray-700 p-2 -ml-2 -mt-1 hover:bg-gray-100 rounded-lg transition cursor-pointer"
+              className="text-gray-400 hover:text-gray-700 p-2 -ml-2 mt-1 hover:bg-gray-100 rounded-lg transition cursor-pointer"
               aria-label="Volver"
             >
               <ChevronLeft size={25} />

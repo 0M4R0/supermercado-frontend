@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Loader2, Trash2Icon } from "lucide-react";
-import { UseAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useUI } from "../../context/UIContext";
 import { deleteUbicacion, fetchUbicaciones } from "../../api/ubicaciones";
 import { fetchSavedCards, fetchMetodosPagoCatalogo } from "../../api/paymentMethods";
@@ -9,7 +9,7 @@ import { AddCardModal } from "../modals/AddCardModal";
 import type { Ubicacion, SavedCard } from "../../types/checkout";
 
 export const ProfileTab = () => {
-    const { session } = UseAuth();
+    const { session } = useAuth();
     const [saving, setSaving] = useState(false);
 
     const handleSave = async () => {
@@ -67,7 +67,7 @@ export const ProfileTab = () => {
 };
 
 export const AddressesTab = () => {
-    const { session } = UseAuth();
+    const { session } = useAuth();
     const [ubicaciones, setUbicaciones] = useState<Ubicacion[]>([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
@@ -160,7 +160,7 @@ export const AddressesTab = () => {
 };
 
 export const PaymentMethodsTab = () => {
-    const { session } = UseAuth();
+    const { session } = useAuth();
     const [cards, setCards] = useState<SavedCard[]>([]);
     const [cardCatalogId, setCardCatalogId] = useState(2);
     const [loading, setLoading] = useState(true);

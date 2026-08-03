@@ -14,7 +14,7 @@ import {
     updateCarritoItem as updateCarritoItemApi,
 } from "../api/carrito";
 import { ApiError } from "../lib/api";
-import { UseAuth } from "./AuthContext";
+import { useAuth } from "./AuthContext";
 import type { ApiCarrito } from "../types/api";
 
 type CartContextType = {
@@ -30,7 +30,7 @@ type CartContextType = {
 const CartContext = createContext<CartContextType | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-    const { session } = UseAuth();
+    const { session } = useAuth();
     const [cart, setCart] = useState<ApiCarrito | null>(null);
     const [loading, setLoading] = useState(false);
 

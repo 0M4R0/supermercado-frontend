@@ -6,7 +6,7 @@ import { fetchProductoById } from "../api/productos";
 import { mapProducto } from "../lib/mapProduct";
 import { ApiError } from "../lib/api";
 import { useCart } from "../context/CartContext";
-import { UseAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import type { Product } from "../types/product";
 import { formatPrice } from "../utils/formatPrice";
 import { useUI } from "../context/UIContext";
@@ -14,7 +14,7 @@ import { useUI } from "../context/UIContext";
 const ProductDetail = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { session } = UseAuth();
+    const { session } = useAuth();
     const { addToCart } = useCart();
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
@@ -199,7 +199,7 @@ const ProductDetail = () => {
                                 <p className="text-gray-600 text-sm leading-relaxed">{product.description}</p>
                             </div>
                         )}
-                        {/*
+{/*
                         {product.distributor && (
                             <p className="text-sm text-gray-600">
                                 Distribuido por <strong>{product.distributor}</strong>

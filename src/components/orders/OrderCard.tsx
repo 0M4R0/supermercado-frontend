@@ -23,7 +23,12 @@ export const OrderCard = ({ order }: OrderCardProps) => {
         {order.imagenes_productos && order.imagenes_productos.length > 0 && (
           <div className="hidden sm:flex -space-x-3 shrink-0">
             {order.imagenes_productos.slice(0, 3).map((img, index) => (
-              <img key={index} src={img} alt={`Product ${index + 1}`} className="w-12 h-12 object-cover rounded-full border-2 border-white shadow-sm" />
+              <img
+                key={index}
+                fetchPriority="high"
+                src={img}
+                alt={`Product ${index + 1}`}
+                className="w-12 h-12 object-cover rounded-full border-2 border-white shadow-sm" />
             ))}
           </div>
         )}

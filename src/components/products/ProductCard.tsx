@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ShoppingCartIcon } from "lucide-react";
 import { ApiError } from "../../lib/api";
 import { useCart } from "../../context/CartContext";
-import { UseAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import type { Product } from "../../types/product";
 import { formatPrice } from "../../utils/formatPrice";
 import { useUI } from "../../context/UIContext";
@@ -14,7 +14,7 @@ type ProductCardProps = {
 
 export const ProductCard = ({ product }: ProductCardProps) => {
   const navigate = useNavigate();
-  const { session } = UseAuth();
+  const { session } = useAuth();
   const { addToCart } = useCart();
   const { openOverlay } = useUI();
   const [adding, setAdding] = useState(false);
@@ -55,6 +55,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         <div className="relative bg-gray-100 h-48 flex items-center justify-center overflow-hidden">
           {product.imageUrl ? (
             <img
+              fetchPriority="low"
               src={product.imageUrl}
               alt={product.name}
               className="object-cover object-top h-full w-full transition-transform duration-500 group-hover:scale-105"
@@ -107,7 +108,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           className="mt-2 cursor-pointer inline-flex items-center justify-center w-full rounded-full bg-green-600 px-4 py-2.5 text-white font-semibold shadow-sm hover:bg-green-700 transition-all active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60 disabled:active:scale-100"
         >
           <ShoppingCartIcon className="w-4 h-4 mr-2" />
-          {adding ? "Agregando..." : "Añadir"}
+          {adding ? "Agregando..." : "Agregar"}
         </button>
       </div>
     </article>

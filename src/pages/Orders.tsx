@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Package, ArrowRight, Loader2 } from "lucide-react";
-import { UseAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { fetchPedidos } from "../api/pedidos";
 import { OrderCard } from "../components/orders/OrderCard";
 import type { Pedido } from "../types/checkout";
@@ -9,7 +9,7 @@ import type { Pedido } from "../types/checkout";
 const PAGE_SIZE = 10;
 
 export const Orders = () => {
-    const { session } = UseAuth();
+    const { session } = useAuth();
     // Depend on the token string, not the whole session object — Supabase
     // recreates session on tab focus / auth events, which would re-fetch every time.
     const token = session?.access_token;

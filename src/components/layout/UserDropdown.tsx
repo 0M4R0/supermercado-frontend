@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronDown, LogOut, Settings, ShoppingBag } from "lucide-react";
-import { UseAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useUI } from "../../context/UIContext";
 
 export const UserDropdown = () => {
-    const { session, signOut } = UseAuth();
+    const { session, signOut } = useAuth();
     const { openOverlay } = useUI();
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { X, Loader2 } from "lucide-react";
 import { createUbicacion } from "../../api/ubicaciones";
-import { UseAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import type { Ubicacion } from "../../types/checkout";
 
 type AddLocationModalProps = {
@@ -10,7 +10,7 @@ type AddLocationModalProps = {
 };
 
 export const AddLocationModal = ({ onClose, onCreated }: AddLocationModalProps) => {
-    const { session } = UseAuth();
+    const { session } = useAuth();
     const [direccion, setDireccion] = useState("");
     const [ciudad, setCiudad] = useState("");
     const [provincia, setProvincia] = useState("");

@@ -1,13 +1,13 @@
 import { type ReactNode } from 'react';
 import { Navigate } from 'react-router-dom';
-import { UseAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext';
 
 interface PrivateRouteProps {
     children: ReactNode;
 }
 
 const PrivateRoute = ({ children }: PrivateRouteProps) => {
-    const { session } = UseAuth();
+    const { session } = useAuth();
 
     if (!session) {
         return <Navigate to="/login" />;

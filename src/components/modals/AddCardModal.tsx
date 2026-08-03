@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { X, Loader2 } from "lucide-react";
 import { createCard } from "../../api/paymentMethods";
-import { UseAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import type { SavedCard } from "../../types/checkout";
 
 type AddCardModalProps = {
@@ -16,7 +16,7 @@ const BRANDS = [
 ];
 
 export const AddCardModal = ({ metodoPagoId, onClose, onCreated }: AddCardModalProps) => {
-    const { session } = UseAuth();
+    const { session } = useAuth();
     const [ultimos4, setUltimos4] = useState("");
     const [alias, setAlias] = useState("");
     const [marca, setMarca] = useState("visa");

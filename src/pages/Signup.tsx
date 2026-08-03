@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { UseAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext";
 import { Eye, EyeOff } from "lucide-react"
+import AuthBanner from "../components/auth/AuthBanner";
 
 const Signup = () => {
     const [email, setEmail] = useState("");
@@ -17,7 +18,7 @@ const Signup = () => {
     const [nombre, setNombre] = useState("");
     const [apellido, setApellido] = useState("");
 
-    const { session, signInNewUser } = UseAuth();
+    const { session, signInNewUser } = useAuth();
     const Navigate = useNavigate();
 
     if (session) {
@@ -52,25 +53,7 @@ const Signup = () => {
     return (
         <div className="min-h-screen flex">
             <div className="relative hidden lg:flex lg:w-1/2">
-                <img
-                    src="https://centrocuestanacional.com/wp-content/uploads/2022/01/Supermercados-Nacional-Plaza-Central.jpg"
-                    alt="Supermarket"
-                    className="absolute inset-0 w-full h-full object-cover"
-                />
-
-                <div className="absolute inset-0 bg-black/40" />
-                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/20 to-transparent" />
-
-                <div className="relative z-10 flex flex-col items-center justify-center w-full text-white px-8">
-                    <h1 className="text-5xl font-bold mb-4">
-                        Mercado Verde
-                    </h1>
-
-                    <p className="text-xl text-center max-w-md">
-                        Productos frescos, entregados con cuidado directo a tu puerta.
-                    </p>
-                </div>
-
+                <AuthBanner />
             </div>
 
             <div className="flex w-full lg:w-1/2 items-center justify-center px-8">

@@ -9,7 +9,7 @@ import {
   LogIn,
   UserPlus,
 } from "lucide-react";
-import { UseAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useUI } from "../../context/UIContext";
 
 type MobileMenuProps = {
@@ -19,7 +19,7 @@ type MobileMenuProps = {
 };
 
 export const MobileMenu = ({ isOpen, onToggle, onClose }: MobileMenuProps) => {
-  const { session, signOut } = UseAuth();
+  const { session, signOut } = useAuth();
   const { openOverlay } = useUI();
   const navigate = useNavigate();
   const menuRef = useRef<HTMLDivElement>(null);
