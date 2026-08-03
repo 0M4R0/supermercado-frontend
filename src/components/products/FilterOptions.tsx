@@ -5,6 +5,7 @@ type FilterOptionsProps = {
   categories: Category[];
   selectedCategoryIds: number[];
   onCategoryChange: (categoryId: number) => void;
+  onClearFilters: () => void;
   sort: SortOption;
   sortOptions: SortOption[];
   onSortChange: (sort: SortOption) => void;
@@ -15,6 +16,7 @@ const FilterOptions = ({
   categories,
   selectedCategoryIds,
   onCategoryChange,
+  onClearFilters,
   sort,
   sortOptions,
   onSortChange,
@@ -22,19 +24,14 @@ const FilterOptions = ({
 }: FilterOptionsProps) => {
   const sortKey = `${sort.order}-${sort.dir}`;
 
-  const clearFilters = () => {
-    onCategoryChange(0);
-    onSortChange(sortOptions[0]);
-  };
-
   return (
     <div className="space-y-6">
       <div className="flex flex-row justify-between">
         <h2 className="text-lg font-bold text-gray-900">Filtros</h2>
 
         <button
-          className="border border-green-600 rounded-full px-2 py-1"
-          onClick={clearFilters}
+          className="inline-flex items-center text-xs font-medium text-green-600 border border-green-200 bg-green-50 rounded-full px-3 py-1 hover:bg-green-100 hover:border-green-300 transition cursor-pointer"
+          onClick={onClearFilters}
         >
           Limpiar
         </button>
