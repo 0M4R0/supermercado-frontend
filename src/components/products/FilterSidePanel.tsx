@@ -9,6 +9,7 @@ type FilterSidePanelProps = {
   categories: Category[];
   selectedCategoryIds: number[];
   onCategoryChange: (categoryId: number) => void;
+  onClearFilters: () => void;
   sort: SortOption;
   sortOptions: SortOption[];
   onSortChange: (sort: SortOption) => void;
@@ -19,6 +20,7 @@ const FilterSidePanel = ({
   categories,
   selectedCategoryIds,
   onCategoryChange,
+  onClearFilters,
   sort,
   sortOptions,
   onSortChange,
@@ -71,6 +73,7 @@ const FilterSidePanel = ({
             categories={categories}
             selectedCategoryIds={selectedCategoryIds}
             onCategoryChange={onCategoryChange}
+            onClearFilters={onClearFilters}
             sort={sort}
             sortOptions={sortOptions}
             onSortChange={onSortChange}

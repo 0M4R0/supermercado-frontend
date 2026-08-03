@@ -75,7 +75,7 @@ export const Orders = () => {
                         </Link>
                     </div>
                 ) : (
-                    <div className="flex flex-col space-y-4 gap-2">
+                    <div className="flex flex-col space-y-4">
                         {orders.map((order) => (
                           <Link key={order.pedido_id} to={`/cuenta/pedidos/${order.codigo_seguimiento}`}>
                             <OrderCard order={order} />
@@ -83,23 +83,23 @@ export const Orders = () => {
                         ))}
 
                         {totalPages > 1 && (
-                            <div className="flex items-center justify-center gap-4 mt-8">
+                            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 mt-8">
                                 <button
                                     type="button"
                                     disabled={page <= 1}
                                     onClick={() => setPage((p) => p - 1)}
-                                    className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                                    className="rounded-lg border border-gray-200 bg-white px-4 sm:px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
                                 >
                                     ← Anterior
                                 </button>
-                                <span className="text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-full px-4 py-1.5 shadow-sm">
+                                <span className="order-last sm:order-0 w-full sm:w-auto text-center text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-full px-4 py-1.5 shadow-sm">
                                     Página {page} de {totalPages}
                                 </span>
                                 <button
                                     type="button"
                                     disabled={page >= totalPages}
                                     onClick={() => setPage((p) => p + 1)}
-                                    className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
+                                    className="rounded-lg border border-gray-200 bg-white px-5 sm:px-5 py-2.5 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 hover:border-gray-300 transition disabled:cursor-not-allowed disabled:opacity-50 cursor-pointer"
                                 >
                                     Siguiente →
                                 </button>

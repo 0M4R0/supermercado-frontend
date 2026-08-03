@@ -92,6 +92,12 @@ const Catalog = () => {
         setSort(nextSort);
     };
 
+    const handleClearFilters = () => {
+        setPage(1);
+        setSelectedCategoryIds([]);
+        setSort(SORT_OPTIONS[0]);
+    };
+
     return (
         <div className="py-20 px-4">
             <div className="max-w-7xl mx-auto">
@@ -136,6 +142,7 @@ const Catalog = () => {
                             categories={categories}
                             selectedCategoryIds={selectedCategoryIds}
                             onCategoryChange={handleCategoryChange}
+                            onClearFilters={handleClearFilters}
                             sort={sort}
                             sortOptions={SORT_OPTIONS}
                             onSortChange={handleSortChange}
@@ -197,6 +204,7 @@ const Catalog = () => {
                 categories={categories}
                 selectedCategoryIds={selectedCategoryIds}
                 onCategoryChange={handleCategoryChange}
+                onClearFilters={handleClearFilters}
                 sort={sort}
                 sortOptions={SORT_OPTIONS}
                 onSortChange={handleSortChange}
