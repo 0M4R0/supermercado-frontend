@@ -32,7 +32,7 @@ const Navbar = () => {
                         className="flex items-center gap-2 font-bold text-lg text-gray-900 hover:text-green-600 transition"
                     >
                         <Store size={24} className="text-green-600 hidden sm:block" />
-                        <span>Supermercado</span>
+                        <span>Mercado Verde</span>
                     </Link>
                 </div>
 
