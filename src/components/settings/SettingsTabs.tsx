@@ -3,7 +3,7 @@ import { Loader2, Trash2Icon } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import { useUI } from "../../context/UIContext";
 import { deleteUbicacion, fetchUbicaciones } from "../../api/ubicaciones";
-import { fetchSavedCards, fetchMetodosPagoCatalogo } from "../../api/paymentMethods";
+import { fetchSavedCards, fetchMetodosPagoCatalogo, deleteCard } from "../../api/paymentMethods";
 import { AddLocationModal } from "../modals/AddLocationModal";
 import { AddCardModal } from "../modals/AddCardModal";
 import type { Ubicacion, SavedCard } from "../../types/checkout";
@@ -165,6 +165,7 @@ export const PaymentMethodsTab = () => {
     const [cardCatalogId, setCardCatalogId] = useState(2);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
+    const [deletingId, setDeletingId] = useState<number | null>(null);
 
     useEffect(() => {
         if (!session) return;
@@ -190,6 +191,21 @@ export const PaymentMethodsTab = () => {
         setShowModal(false);
     };
 
+    const handleDeleteCard = async (cardId: number) => {
+        if (!session) return;
+        if (!window.confirm("¿Estás seguro de que quieres eliminar este método de pago?")) return;
+
+        setDeletingId(cardId);
+        try {
+            await deleteCard(session.access_token, cardId);
+            setCards((prev) => prev.filter((c) => c.id !== cardId));
+        } catch (err) {
+            console.error("Error al eliminar método de pago:", err);
+        } finally {
+            setDeletingId(null);
+        }
+    };
+
     return (
         <div className="space-y-6">
             <div>
@@ -202,8 +218,27 @@ export const PaymentMethodsTab = () => {
                     <div className="space-y-3">
                         {cards.map((card) => (
                             <div key={card.id} className="p-4 border border-gray-200 rounded-xl hover:shadow-sm hover:border-gray-300 transition bg-white">
-                                <p className="font-medium text-gray-900">{card.alias ?? "Tarjeta"} {card.marca && `(${card.marca})`}</p>
-                                <p className="text-sm text-gray-600">**** {card.ultimos_4}</p>
+                                <div className="flex flex-row justify-between items-center gap-3">
+                                    <div className="min-w-0">
+                                        <p className="font-medium text-gray-900 truncate">{card.alias ?? "Tarjeta"} {card.marca && `(${card.marca})`}</p>
+                                        <p className="text-sm text-gray-600">**** {card.ultimos_4}</p>
+                                    </div>
+                                    <div className="shrink-0">
+                                        {/* Delete payment method button */}
+                                        <button
+                                            onClick={() => handleDeleteCard(card.id)}
+                                            disabled={deletingId === card.id}
+                                            className="p-2 hover:bg-red-500 hover:text-white rounded-lg transition text-red-500 cursor-pointer disabled:opacity-50"
+                                            aria-label="Eliminar método de pago"
+                                        >
+                                            {deletingId === card.id ? (
+                                                <Loader2 size={18} className="animate-spin" />
+                                            ) : (
+                                                <Trash2Icon size={18} />
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
