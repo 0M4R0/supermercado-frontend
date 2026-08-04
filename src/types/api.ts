@@ -86,3 +86,14 @@ export const SORT_OPTIONS: SortOption[] = [
     { order: "precio", dir: "desc", label: "Precio: mayor a menor" },
     { order: "created_at", dir: "desc", label: "Más nuevos" },
 ];
+
+export const CATEGORY_IMAGES: Record<string, string | undefined> = {
+    'Despensa': 'https://vjkxoqxiwwkyajjrsmyi.supabase.co/storage/v1/object/public/productos-img/rice.png',
+    'Lacteos y Huevos': 'https://vjkxoqxiwwkyajjrsmyi.supabase.co/storage/v1/object/public/productos-img/lacteos-huevos.png',
+    'Carnes': 'https://vjkxoqxiwwkyajjrsmyi.supabase.co/storage/v1/object/public/productos-img/meat.webp',
+    'Frutas': 'https://vjkxoqxiwwkyajjrsmyi.supabase.co/storage/v1/object/public/productos-img/fruits.png',
+    'Vegetales': 'https://vjkxoqxiwwkyajjrsmyi.supabase.co/storage/v1/object/public/productos-img/vegetables.png',
+    'Bebidas': 'https://vjkxoqxiwwkyajjrsmyi.supabase.co/storage/v1/object/public/productos-img/water.png',
+    'Panadería y Repostería': 'https://vjkxoqxiwwkyajjrsmyi.supabase.co/storage/v1/object/public/productos-img/bread.png',
+    'Quesos y Embutidos': 'https://vjkxoqxiwwkyajjrsmyi.supabase.co/storage/v1/object/public/productos-img/cheese.png',
+};

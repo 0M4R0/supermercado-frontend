@@ -8,7 +8,7 @@ export type Product = {
     discount?: string;
     imageUrl?: string;
     description?: string;
-    distributor?: string;
+    proveedor?: string;
     inStock?: boolean;
     stock?: number;
     maxStock?: number;

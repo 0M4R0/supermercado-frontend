@@ -199,12 +199,12 @@ const ProductDetail = () => {
                                 <p className="text-gray-600 text-sm leading-relaxed">{product.description}</p>
                             </div>
                         )}
-{/*
-                        {product.distributor && (
+
+                        {product.proveedor && (
                             <p className="text-sm text-gray-600">
-                                Distribuido por <strong>{product.distributor}</strong>
+                                Proveedor: <strong>{product.proveedor}</strong>
                             </p>
-                        )}*/}
+                        )}
 
                         <div className="flex items-center gap-6 flex-wrap">
                             <div className="flex items-center border border-gray-300 rounded-xl bg-white shadow-sm overflow-hidden">

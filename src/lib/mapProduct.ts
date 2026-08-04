@@ -30,7 +30,7 @@ export function mapProducto(producto: ApiProducto): Product {
         imageUrl: producto.imagen_producto ?? undefined,
         categories: categorias,
         categoryIds: categorias.map((c) => c.id),
-        distributor: proveedor?.nombre,
+        proveedor: proveedor?.nombre,
         inStock: stock > 0,
         stock,
         maxStock: inventario?.max_stock,

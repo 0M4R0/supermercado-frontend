@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { SlidersHorizontal, Loader2, PackageSearch } from "lucide-react";
 import { ProductList } from "../components/products/ProductList";
 import FilterOptions from "../components/products/FilterOptions";
@@ -12,8 +13,17 @@ import type { Category, Product } from "../types/product";
 
 const PAGE_SIZE = 20;
 
+function parseCategoryIdsFromSearch(raw: string | null): number[] {
+    if (!raw) return [];
+    return raw
+        .split(",")
+        .map((value) => Number(value.trim()))
+        .filter((id) => Number.isInteger(id) && id > 0);
+}
+
 const Catalog = () => {
     const { openOverlay } = useUI();
+    const [searchParams] = useSearchParams();
     const [products, setProducts] = useState<Product[]>([]);
     const [categories, setCategories] = useState<Category[]>([]);
     const [total, setTotal] = useState(0);
@@ -22,8 +32,15 @@ const Catalog = () => {
     const [loading, setLoading] = useState(true);
     const [categoriesLoading, setCategoriesLoading] = useState(true);
     const [error, setError] = useState("");
-    const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>([]);
+    const [selectedCategoryIds, setSelectedCategoryIds] = useState<number[]>(() =>
+        parseCategoryIdsFromSearch(searchParams.get("categoria_id"))
+    );
     const [sort, setSort] = useState<SortOption>(SORT_OPTIONS[0]);
+
+    useEffect(() => {
+        setSelectedCategoryIds(parseCategoryIdsFromSearch(searchParams.get("categoria_id")));
+        setPage(1);
+    }, [searchParams]);
 
     useEffect(() => {
         const loadCategories = async () => {

@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, ScrollRestoration } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import SettingsOverlay from "./components/settings/SettingsOverlay";
 import CartSidePanel from "./components/cart/CartSidePanel";
@@ -9,6 +9,7 @@ export default function Layout() {
   return (
     <UIContextProvider>
       <div className="min-h-screen flex flex-col">
+        <ScrollRestoration />
         <Navbar />
 
         <div className="flex-1">
